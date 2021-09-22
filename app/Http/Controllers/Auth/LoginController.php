@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -36,5 +39,30 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+/*
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+        if(
+            Auth::attempt(array(
+                'correo_usuario' => $credentials['email'],
+                'password' => $credentials['password'],
+            ))
+        ){
+            $request->session()->regenerate();
+            return redirect()->intended($this->redirectTo);
+        }
+        return back()->withErrors([
+            'email' => 'Las credenciales proveidas no coinciden con nuestros datos registrados'
+        ]);
+    }
+    */
+    protected function credentials(Request $request)
+    {
+        return ['correo_usuario' => $request->get('email'), 'password' => $request->get('password')];
     }
 }

@@ -11,17 +11,24 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    protected $primaryKey = 'id_usuario';
+    public $table = "usuarios";
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'fullacces',
-        'codigo',
+        'nombres_usuario',
+        'apellidos_usuario',
+        'documento_usuario',
+        'correo_usuario',
+        'direccion_usuario',
+        'telefono_usuario',
+        'contrasena_usuario',
+        'rol_usuario',
     ];
 
     /**
@@ -30,16 +37,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'contrasena_usuario',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function getAuthPassword() {
+        return $this->contrasena_usuario;
+    }
 }

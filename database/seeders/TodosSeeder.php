@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\usuarios;
 use Illuminate\Support\Facades\Hash;
 
 class TodosSeeder extends Seeder
@@ -15,6 +16,7 @@ class TodosSeeder extends Seeder
      */
     public function run()
     {
+        /*
         $useradmin=User::create([
         	'nombre' => 'admin mario',
             'documento' => '1085320995',
@@ -23,6 +25,17 @@ class TodosSeeder extends Seeder
         	'password' => Hash::make('admin'),
         	'rol' => 'capataz',
         ]);
-        //
+        */
+
+        usuarios::create([
+            'nombres_usuario' => 'Mario Fernando',
+            'apellidos_usuario' => 'Leiton Burgos',
+            'documento_usuario' => '1085320995',
+            'correo_usuario' => 'mario@gmail.com',
+            'direccion_usuario' => 'avenida',
+            'telefono_usuario' => '3117235354',
+            'contrasena_usuario' => Hash::make('admin'),
+        	'rol_usuario' => 'administrador',
+        ]);
     }
 }

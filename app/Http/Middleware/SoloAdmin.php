@@ -17,14 +17,14 @@ class SoloAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth::user()->rol=='administrador') {
-    return $next($request);
+        if (auth::user()->rol_usuario == 'administrador') {
+            return $next($request);
+        }
+        elseif (auth::user()->rol_usuario == 'gerente') {
+            return redirect('user');
+        } 
+        elseif (auth::user()->rol_usuario == 'capataz') {
+            return redirect('capataz');        
+        }
     }
-    elseif (auth::user()->rol=='gerente') {
-    return redirect('user');
-    } 
-    elseif (auth::user()->rol=='capataz') {
-    return redirect('capataz');        
-    }
-}
 }

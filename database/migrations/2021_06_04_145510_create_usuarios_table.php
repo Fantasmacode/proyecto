@@ -14,15 +14,15 @@ class CreateUsuariosTable extends Migration
     public function up()
     {
         Schema::create('usuarios', function (Blueprint $table) {
-            $table->bigIncrements('id', 4);
-            $table->string('nom_res', 30);
-            $table->string('ape_res', 30);
-            $table->string('tip_doc', 30);
-            $table->string('num_res', 20);
-            $table->string('tel_res', 20);
-            $table->string('cor_res', 40);
-            $table->string('nom_rol', 20);
-            $table->timestamps();
+            $table->bigIncrements('id_usuario');
+            $table->string('nombres_usuario', 30);
+            $table->string('apellidos_usuario', 30);
+            $table->string('documento_usuario', 30);
+            $table->string('correo_usuario', 50);
+            $table->string('direccion_usuario', 50);
+            $table->string('telefono_usuario', 10);
+            $table->string('contrasena_usuario', 300);
+            $table->enum('rol_usuario', ['administrador','gerente','capataz']);
         });
     }
 

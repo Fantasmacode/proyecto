@@ -59,7 +59,7 @@
                             <label class="dropdown">
 
                               <div class="dd-button">
-                                {{ Auth::user()->name }}
+                                {{ Auth::user()->nombres_usuario }} {{ Auth::user()->apellidos_usuario }}
                               </div>
 
                               <input type="checkbox" class="dd-input" id="test">
