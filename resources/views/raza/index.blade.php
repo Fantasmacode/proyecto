@@ -3,13 +3,10 @@
 @section('form')
 
 <div class="container">
-
 @if(Session::has('Mensaje'))
-
-<div class="valid-feedback" role="alert">
-	{{  Session::get('Mensaje') }}	
+<div class="alert alert-success" role="alert">
+{{ Session::get('Mensaje') }}
 </div>
-
 @endif
 
 
@@ -31,16 +28,16 @@
 	<tbody>
 		@foreach ($razas as $res)
 		<tr>
-			<td>{{ $res->idraza }}</td>
-			<th>{{ $res->nombreraza }}</th>
+			<td>{{ $res->id_raz }}</td>
+			<th>{{ $res->nombre_raz }}</th>
 			<td>
 
-				<a class="btn btn-light" href="{{ url('/raza/'.$res->idraza.'/edit') }}" data-toggle="tooltip" data-placement="left" title="Editar">
+				<a class="btn btn-light" href="{{ url('/raza/'.$res->id_raz.'/edit') }}" data-toggle="tooltip" data-placement="left" title="Editar">
                 <i class="far fa-edit"></i>
   
             </a>
 
-				<form method="post" action="{{ url('/raza/'.$res->idraza) }}"  style="display: inline;">
+			<form method="post" action="{{ url('/raza/'.$res->id_raz) }}"  style="display: inline;">
             {{csrf_field() }}
             {{ method_field('DELETE') }}
             

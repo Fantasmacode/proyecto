@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class raza extends Model
 {
-protected $primaryKey = "idraza";
+protected $primaryKey = "id_raz";
+public $table = "razas";
+public $timestamps = false;
 }

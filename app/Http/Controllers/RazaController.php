@@ -26,7 +26,8 @@ class RazaController extends Controller
      */
     public function create()
     {
-        return view('raza.create');    }
+        return view('raza.create');
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -37,11 +38,10 @@ class RazaController extends Controller
     public function store(Request $request)
     {
         $campos = [
-            'nombreraza' => 'required|regex:/^[\pL\s\-]+$/u'
-           
+            'nombre_raz' => 'required|regex:/^[\pL\s\-]+$/u'
         ];
 
-        $mensaje = ["required"=>'El :attribute es requerido'];
+        $mensaje = ["required"=>'El campo :attribute es requerido'];
 
         $this->validate($request,$campos,$mensaje);
 
@@ -62,7 +62,7 @@ class RazaController extends Controller
      * @param  \App\Models\raza  $raza
      * @return \Illuminate\Http\Response
      */
-    public function show(raza $idraza)
+    public function show(raza $id_raz)
     {
         //
     }
@@ -73,9 +73,9 @@ class RazaController extends Controller
      * @param  \App\Models\raza  $raza
      * @return \Illuminate\Http\Response
      */
-    public function edit($idraza)
+    public function edit($id_raz)
     {
-        $admin= Raza::findOrFail($idraza);
+        $admin= Raza::findOrFail($id_raz);
 
         return view('raza.edit',compact('admin'));
     }
@@ -87,20 +87,20 @@ class RazaController extends Controller
      * @param  \App\Models\raza  $raza
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$idraza)
+    public function update(Request $request, $id_raz)
     {
         $campos = [
-            'nombreraza' => 'required|regex:/^[\pL\s\-]+$/u'
+            'nombre_raz' => 'required|regex:/^[\pL\s\-]+$/u'
         ];
 
-        $mensaje = ["required"=>'El :attribute es requerido'];
+        $mensaje = ["required"=>'El campo :attribute es requerido'];
 
         $this->validate($request,$campos,$mensaje);
 
 
         $datoAdmin=request()->except(['_token','_method']);
 
-        Raza::where('idraza','=',$idraza)->update($datoAdmin);
+        Raza::where('id_raz','=',$id_raz)->update($datoAdmin);
 
         //$admin= administrador::findOrFail($id);
         //return view('administrador.edit',compact('admin'));
@@ -115,10 +115,10 @@ class RazaController extends Controller
      * @param  \App\Models\raza  $raza
      * @return \Illuminate\Http\Response
      */
-    public function destroy($idraza)
+    public function destroy($id_raz)
     {
-        $admin=raza::findOrFail($idraza);
-        raza::destroy($idraza);  
+        $admin=raza::findOrFail($id_raz);
+        raza::destroy($id_raz);  
         return redirect('raza')->with('Mensaje','Raza eliminada');
     }
 }
