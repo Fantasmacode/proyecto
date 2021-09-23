@@ -44,17 +44,19 @@ class CreateUserController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $campos = [
-            'nombre' => 'required|string|max:50',
-            'documento' => 'required|string|unique:users|max:10', 
-            'email' => 'required|string|unique:users|max:50',
-            'rol' => 'required|string|max:20',
-            'telefono' => 'required|string|max:20',
-            'password' => 'required|string|max:20',
+            'nombres_usuario' => 'required|max:30',
+            'apellidos_usuario' => 'required|max:30',
+            'tipodoc_usuario' => 'required|max:30',
+            'documento_usuario' => 'required|max:20',
+            'correo_usuario' => 'required|max:40',
+            'direccion_usuario' => 'required|max:40',
+            'telefono_usuario' => 'required|max:20',
+            'rol_usuario' => 'required|max:20',
+            'contrasena_usuario' => 'required|max:300',
         ];
 
-        $mensaje = ["required"=>'El :attribute es requerido'];
+        $mensaje = ["required"=>'El campo :attribute es requerido'];
 
         $this->validate($request,$campos,$mensaje);
 
@@ -63,12 +65,15 @@ class CreateUserController extends Controller
         //$datoAdmin=request()->except('_token');
 
         $user = new User();
-    	$user->nombre = $request->nombre;
-    	$user->documento = $request->documento;
-    	$user->rol = $request->rol;
-    	$user->email = $request->email;
-        $user->telefono = $request->telefono;
-    	$user->password = bcrypt($request->password); // Se encripta la contraseña usando la función bcrypt().
+        $user->nombres_usuario = $request->nombres_usuario;
+        $user->apellidos_usuario = $request->apellidos_usuario;
+        $user->tipodoc_usuario = $request->tipodoc_usuario;
+        $user->documento_usuario = $request->documento_usuario;
+        $user->correo_usuario = $request->correo_usuario;
+        $user->telefono_usuario = $request->telefono_usuario;
+        $user->direccion_usuario = $request->direccion_usuario;
+        $user->rol_usuario = $request->rol_usuario;
+    	$user->contrasena_usuario = bcrypt($request->contrasena_usuario); // Se encripta la contraseña usando la función bcrypt().
     	$user->save(); // Se guarda el registro en la base de datos.
 
         //return response()->json($datoAdmin);
@@ -111,20 +116,24 @@ class CreateUserController extends Controller
     {
         //
         $campos = [
-            'nombre' => 'required|string|max:50',
-            'documento' => 'required|string|unique:users|max:10', 
-            'email' => 'required|string|unique:users|max:50',
-            'rol' => 'required|string|max:50',
+            'nombres_usuario' => 'required|max:30',
+            'apellidos_usuario' => 'required|max:30',
+            'tipodoc_usuario' => 'required|max:30',
+            'documento_usuario' => 'required|max:20',
+            'correo_usuario' => 'required|max:40',
+            'direccion_usuario' => 'required|max:40',
+            'telefono_usuario' => 'required|max:20',
+            'rol_usuario' => 'required|max:20'
         ];
 
-        $mensaje = ["required"=>'El :attribute es requerido'];
+        $mensaje = ["required"=>'El campo :attribute es requerido'];
 
         $this->validate($request,$campos,$mensaje);
 
 
         $datoAdmin=request()->except(['_token','_method']);
 
-        user::where('id','=',$id)->update($datoAdmin);
+        user::where('id_usuario','=',$id)->update($datoAdmin);
 
         //$admin= administrador::findOrFail($id);
         //return view('administrador.edit',compact('admin'));
@@ -142,7 +151,7 @@ class CreateUserController extends Controller
     {
         //
         $admin=user::findOrFail($id);
-        user::destroy($id);  
+        user::destroy($id);
         return redirect('administrador')->with('Mensaje','Usuario eliminado');
     }
 }

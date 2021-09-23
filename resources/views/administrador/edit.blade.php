@@ -3,7 +3,7 @@
 @section('form')
 <div class="container">
 
-<form method="post" action="{{ url('/administrador/'.$admin->id) }}" enctype="multipart/form-data">
+<form method="post" action="{{ route('administrador.update', $admin->id_usuario) }}" enctype="multipart/form-data">
 {{ csrf_field() }}
 {{ method_field('PATCH') }}
 @include ('administrador.form-edit', ['Modo'=>'editar'])

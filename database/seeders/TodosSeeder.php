@@ -30,6 +30,7 @@ class TodosSeeder extends Seeder
         usuarios::create([
             'nombres_usuario' => 'Mario Fernando',
             'apellidos_usuario' => 'Leiton Burgos',
+            'tipodoc_usuario' => 'CC',
             'documento_usuario' => '1085320995',
             'correo_usuario' => 'mario@gmail.com',
             'direccion_usuario' => 'avenida',

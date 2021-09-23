@@ -17,6 +17,7 @@ class CreateUsuariosTable extends Migration
             $table->bigIncrements('id_usuario');
             $table->string('nombres_usuario', 30);
             $table->string('apellidos_usuario', 30);
+            $table->enum('tipodoc_usuario', ['CC','TI']);
             $table->string('documento_usuario', 30);
             $table->string('correo_usuario', 50);
             $table->string('direccion_usuario', 50);

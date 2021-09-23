@@ -10,11 +10,14 @@ class usuarios extends Model
     use HasFactory;
     
     protected $primaryKey = 'id_usuario';
+    public $table = "usuarios";
     public $timestamps = false;
 
     protected $fillable = [
         'nombres_usuario',
         'apellidos_usuario',
+        'tipodoc_usuario',
+        'documento_usuario',
         'correo_usuario',
         'direccion_usuario',
         'telefono_usuario',
@@ -25,4 +28,8 @@ class usuarios extends Model
     protected $hidden = [
         'contrasena_usuario',
     ];
+
+    public function getAuthPassword() {
+        return $this->contrasena_usuario;
+    }
 }

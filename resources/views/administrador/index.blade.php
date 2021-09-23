@@ -34,22 +34,22 @@
     </thead>
 
     <tbody>
-            @foreach ($administrador as $admin)   
+            @foreach ($administrador as $admin)
         <tr>
-            <td>{{$admin -> nombre}}{{$admin -> Apellido}}</td>
-            <td>{{$admin -> documento}}</td>
-            <td>{{$admin -> email}}</td>
-            <th>{{$admin -> telefono}}</th>
-            <th>{{$admin -> rol}}</th>
+            <td>{{$admin -> nombres_usuario}} {{$admin -> apellidos_usuario}}</td>
+            <td>{{$admin -> documento_usuario}}</td>
+            <td>{{$admin -> correo_usuario}}</td>
+            <th>{{$admin -> telefono_usuario}}</th>
+            <th>{{$admin -> rol_usuario}}</th>
             <td>   
 
     
-            <a class="btn btn-light" href="{{ url('/administrador/'.$admin->id.'/edit') }}" data-toggle="tooltip" data-placement="left" title="Editar">
+            <a class="btn btn-light" href="{{ url('/administrador/'.$admin->id_usuario.'/edit') }}" data-toggle="tooltip" data-placement="left" title="Editar">
                 <i class="far fa-edit"></i>
   
             </a>
 
-            <form method="post" action="{{ url('/administrador/'.$admin->id) }}"  style="display: inline;">
+            <form method="post" action="{{ url('/administrador/'.$admin->id_usuario) }}"  style="display: inline;">
             {{csrf_field() }}
             {{ method_field('DELETE') }}
     

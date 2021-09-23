@@ -38,17 +38,17 @@ class UsuariosController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $campos=[
-            'nom_res' => 'required|max:30',
-            'ape_res' => 'required|max:30',
-            'tip_doc' => 'required|max:30',
-            'num_res' => 'required|max:20',
-            'tel_res' => 'required|max:20',
-            'cor_res' => 'required|max:40',
-            'nom_rol' => 'required|max:20'
+            'nombres_usuario' => 'required|max:30',
+            'apellidos_usuario' => 'required|max:30',
+            'tipodoc_usuario' => 'required|max:30',
+            'documento_usuario' => 'required|max:20',
+            'correo_usuario' => 'required|max:40',
+            'direccion_usuario' => 'required|max:40',
+            'telefono_usuario' => 'required|max:20',
+            'rol_usuario' => 'required|max:20'
         ];
-        $Mensaje=["required"=>'La :attribute es requerida'];
+        $Mensaje=["required"=>'El campo :attribute es requerido'];
 
         $this->validate($request,$campos,$Mensaje);
 
