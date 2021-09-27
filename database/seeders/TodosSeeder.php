@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
-use App\Models\usuarios;
+use App\Models\usuario;
 use Illuminate\Support\Facades\Hash;
 
 class TodosSeeder extends Seeder
@@ -27,7 +27,7 @@ class TodosSeeder extends Seeder
         ]);
         */
 
-        usuarios::create([
+        usuario::create([
             'nombres_usuario' => 'Mario Fernando',
             'apellidos_usuario' => 'Leiton Burgos',
             'tipodoc_usuario' => 'CC',

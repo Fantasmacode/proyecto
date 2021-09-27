@@ -1,26 +1,25 @@
 	<form>
 	<div class="form-group">
-	<label for="exampleFormControlSelect1"for="comercio">{{'Comercio'}}</label>
-	<select class="form-control {{ $errors-> has('tipocomercio')?'is-invalid':''}}" name="tipocomercio" id="tipocomercio" value="{{ isset ($admin->tipocomercio)?$admin->tipocomercio:old('tipocomercio') }}" aria-label="Default select example">
+	<label for="tipo_comercio">Comercio</label>
+	<select class="form-control {{ $errors-> has('tipo_comercio')?'is-invalid':''}}" name="tipo_comercio" id="tipo_comercio" value="{{ isset ($admin->tipo_comercio)?$admin->tipo_comercio:old('tipo_comercio') }}" aria-label="Default select example">
 	<option selected>Seleccione Tipo de Comercio</option>
 	<option value="Venta">Venta</option>
     <option value="Compra">Compra</option>
 		    </select>
-    {!! $errors->first('tipocomercio' , '<div class="invalid-feedback">:message</div>') !!}
+    {!! $errors->first('tipo_comercio' , '<div class="invalid-feedback">:message</div>') !!}
 	</div>
 
 	<form>
 	<div class="form-group">
-	<label for="exampleFormControlSelect1"for="proveedor">{{'Proveedor'}}</label>
-	<select class="form-control {{ $errors-> has('proveedor')?'is-invalid':''}}" name="proveedor" id="proveedor" value="{{ isset ($admin->proveedor)?$admin->proveedor:old('proveedor') }}" aria-label="Default select example">
-		
+	<label for="proveedor">Proveedor</label>
+	<select class="form-control {{ $errors-> has('id_proveedores')?'is-invalid':''}}" name="id_proveedores" id="proveedor" value="{{ isset ($admin->id_proveedores)?$admin->id_proveedores:old('id_proveedores') }}" aria-label="Default select example">
 	<option selected>Seleccione proveedor</option>
-	@foreach (DB::table('proveedors')->Get() as $proveedor)
-	<option value="{{$proveedor->idproveedor}}">{{$proveedor->nombre}}</option>
-     @endforeach
+	@foreach ($proveedores as $proveedor)
+	<option value="{{$proveedor->id_proveedores}}">{{$proveedor->nombre_proveedores}}</option>
+    @endforeach
     </select>
     
-    {!! $errors->first('proveedor' , '<div class="invalid-feedback">:message</div>') !!}
+    {!! $errors->first('id_proveedores' , '<div class="invalid-feedback">:message</div>') !!}
 	</div>
 
 	

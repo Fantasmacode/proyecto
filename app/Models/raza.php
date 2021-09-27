@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class raza extends Model
 {
 protected $primaryKey = "id_raz";
-public $table = "razas";
+public $table = "raza";
 public $timestamps = false;
 }

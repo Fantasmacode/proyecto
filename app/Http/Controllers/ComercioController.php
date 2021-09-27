@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\comercio;
+use App\Models\proveedor;
 use Illuminate\Http\Request;
 
 class ComercioController extends Controller
@@ -14,7 +15,7 @@ class ComercioController extends Controller
      */
     public function index()
     {
-        $datos['comercios']=Comercio::paginate(5);
+        $datos['comercio']=Comercio::with('proveedor')->paginate(5);
 
         return view('comercio.index',$datos);
     }
@@ -26,7 +27,8 @@ class ComercioController extends Controller
      */
     public function create()
     {
-        return view('comercio.create');
+        $proveedores = Proveedor::all();
+        return view('comercio.create', compact('proveedores'));
     }
 
     /**
@@ -38,12 +40,12 @@ class ComercioController extends Controller
     public function store(Request $request)
     {
         $campos = [
-            'tipocomercio' => 'required|string|max:15',
-            'proveedor' => 'required|string|max:20'
+            'tipo_comercio' => 'required|string|max:15',
+            'id_proveedores' => 'required|string|max:20'
 
         ];
 
-        $mensaje = ["required"=>'El :attribute es requerido'];
+        $mensaje = ["required"=>'El campo :attribute es requerido'];
 
         $this->validate($request,$campos,$mensaje);
 
@@ -75,11 +77,12 @@ class ComercioController extends Controller
      * @param  \App\Models\comercio  $comercio
      * @return \Illuminate\Http\Response
      */
-    public function edit($idcomercio)
+    public function edit($id_comercio)
     {
-        $admin= Comercio::findOrFail($idcomercio);
+        $admin= Comercio::with('proveedor')->findOrFail($id_comercio);
+        $proveedores = Proveedor::all();
 
-        return view('comercio.edit',compact('admin'));
+        return view('comercio.edit',compact('admin', 'proveedores'));
     }
 
     /**
@@ -89,21 +92,21 @@ class ComercioController extends Controller
      * @param  \App\Models\comercio  $comercio
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$idcomercio)
+    public function update(Request $request,$id_comercio)
     {
         $campos = [
-            'tipocomercio' => 'required|string|max:15',
-            'proveedor' => 'required|string|max:20'
+            'tipo_comercio' => 'required|string|max:15',
+            'id_proveedores' => 'required|string|max:20'
         ];
 
-        $mensaje = ["required"=>'El :attribute es requerido'];
+        $mensaje = ["required"=>'El campo :attribute es requerido'];
 
         $this->validate($request,$campos,$mensaje);
 
 
         $datoAdmin=request()->except(['_token','_method']);
 
-        Comercio::where('idcomercio','=',$idcomercio)->update($datoAdmin);
+        Comercio::where('id_comercio','=',$id_comercio)->update($datoAdmin);
 
         //$admin= administrador::findOrFail($id);
         //return view('administrador.edit',compact('admin'));

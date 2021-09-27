@@ -1,32 +1,25 @@
   <form>
   <div class="form-group">
-  <label for="exampleFormControlSelect1"for="comercio">{{'Comercio'}}</label>
-  <select class="form-control {{ $errors-> has('tipocomercio')?'is-invalid':''}}" name="tipocomercio" id="tipocomercio" value="{{ isset ($admin->tipocomercio)?$admin->tipocomercio:old('tipocomercio') }}" aria-label="Default select example">
-  <option selected>Seleccione Tipo de Comercio</option>
-  <option value="Venta">Venta</option>
-    <option value="Compra">Compra</option>
-        </select>
-    {!! $errors->first('tipocomercio' , '<div class="invalid-feedback">:message</div>') !!}
+  <label for="tipo_comercio">Comercio</label>
+  <select class="form-control {{ $errors-> has('tipo_comercio')?'is-invalid':''}}" name="tipo_comercio" id="tipo_comercio" aria-label="Default select example">
+    <option selected>Seleccione Tipo de Comercio</option>
+    <option {{ ($admin->tipo_comercio) == 'Venta' ? 'selected' : '' }} value="Venta">Venta</option>
+    <option {{ ($admin->tipo_comercio) == 'Compra' ? 'selected' : '' }} value="Compra">Compra</option>
+  </select>
+    {!! $errors->first('tipo_comercio' , '<div class="invalid-feedback">:message</div>') !!}
   </div>
 
   <form>
   <div class="form-group">
-  <label for="exampleFormControlSelect1"for="proveedor">{{'Proveedor'}}</label>
-  <select class="form-control {{ $errors-> has('proveedor')?'is-invalid':''}}" name="proveedor" id="proveedor" value="{{ isset ($admin->proveedor)?$admin->proveedor:old('proveedor') }}" aria-label="Default select example">
-    
-  @forelse(DB::table('comercios')->where('idcomercio', '=', $admin->idcomercio)->get() as $co)
-    @foreach (DB::table('proveedors')->where('idproveedor', '=', $co->proveedor)->Get() as $proveedor)
-    <option value="{{$proveedor->idproveedor}}">{{$proveedor->nombre}}</option>
+  <label for="proveedor">Proveedor</label>
+  <select class="form-control {{ $errors-> has('id_proveedores')?'is-invalid':''}}" name="id_proveedores" id="proveedor" aria-label="Default select example">
+    <option selected>Seleccione proveedor</option>
+    @foreach ($proveedores as $proveedor)
+	    <option {{ ($admin->proveedor->id_proveedores) == $proveedor->id_proveedores ? 'selected' : '' }} value="administrador" value="{{$proveedor->id_proveedores}}" >{{$proveedor->nombre_proveedores}}</option>
     @endforeach
-    @foreach (DB::table('proveedors')->get() as $pro)
-    <option value="{{$pro->idproveedor}}">{{$pro->nombre}}</option>
-     @endforeach
-    </select>
-    @empty
-    null
-    @endforelse
+  </select>
     {!! $errors->first('proveedor' , '<div class="invalid-feedback">:message</div>') !!}
-    </div>
+  </div>
 
   
 

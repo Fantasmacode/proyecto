@@ -23,15 +23,15 @@
 
 <form>
   <div class="form-group">
-    <label for="exampleFormControlSelect1" for="rol">{{'Rol'}}</label>
-    <select class="form-control {{ $errors-> has('rol')?'is-invalid':''}}" name="rol" id="rol" 
-    value="{{ isset ($admin->rol)?$admin->rol:old('rol') }}" aria-label="Default select example">
+    <label for="rol">{{'Rol'}}</label>
+    <select class="form-control {{ $errors-> has('rol_usuario')?'is-invalid':''}}" name="rol" id="rol" 
+    value="{{ isset ($admin->rol_usuario)?$admin->rol_usuario:old('rol_usuario') }}" aria-label="Default select example">
       <option selected>Seleccione Rol</option>
     <option value="administrador">Administrador</option>
     <option value="gerente">Gerente</option>
     <option value="capataz">Capataz</option>
     </select>
-    {!! $errors->first('rol' , '<div class="invalid-feedback">:message</div>') !!}
+    {!! $errors->first('rol_usuario' , '<div class="invalid-feedback">:message</div>') !!}
   </div>
 
 

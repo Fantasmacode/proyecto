@@ -14,7 +14,7 @@ class ProveedorController extends Controller
      */
     public function index()
     {
-      $datos['proveedors']=Proveedor::paginate(5);
+        $datos['proveedores']=Proveedor::paginate(5);
 
         return view('proveedor.index',$datos);  //
     }
@@ -38,13 +38,13 @@ class ProveedorController extends Controller
     public function store(Request $request)
     {
         $campos = [
-            'nombre' => 'required|regex:/^[\pL\s\-]+$/u|max:20',
-            'direccion' => 'required|string|max:10',
-            'telefono' => 'required|string|max:15',
-            'correo' => 'required|string|max:20'
+            'nombre_proveedores' => 'required|regex:/^[\pL\s\-]+$/u|max:20',
+            'direccion_proveedores' => 'required|string|max:10',
+            'telefono_proveedores' => 'required|string|max:15',
+            'correo_proveedores' => 'required|string|max:20'
         ];
 
-        $mensaje = ["required"=>'El :attribute es requerido'];
+        $mensaje = ["required"=>'El campo :attribute es requerido'];
 
         $this->validate($request,$campos,$mensaje);
 
@@ -90,23 +90,23 @@ class ProveedorController extends Controller
      * @param  \App\Models\bovino  $bovino
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$idproveedor)
+    public function update(Request $request,$id_proveedores)
     {
         $campos = [
-            'nombre' => 'required|regex:/^[\pL\s\-]+$/u|max:20',
-            'direccion' => 'required|string|max:10',
-            'telefono' => 'required|string|max:15',
-            'correo' => 'required|string|max:20'
+            'nombre_proveedores' => 'required|regex:/^[\pL\s\-]+$/u|max:20',
+            'direccion_proveedores' => 'required|string|max:10',
+            'telefono_proveedores' => 'required|string|max:15',
+            'correo_proveedores' => 'required|string|max:20'
         ];
 
-        $mensaje = ["required"=>'El :attribute es requerido'];
+        $mensaje = ["required"=>'El campo :attribute es requerido'];
 
         $this->validate($request,$campos,$mensaje);
 
 
         $datoAdmin=request()->except(['_token','_method']);
 
-        Proveedor::where('idproveedor','=',$idproveedor)->update($datoAdmin);
+        Proveedor::where('id_proveedores','=',$id_proveedores)->update($datoAdmin);
 
         //$admin= administrador::findOrFail($id);
         //return view('administrador.edit',compact('admin'));

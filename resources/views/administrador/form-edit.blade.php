@@ -48,7 +48,7 @@
 	<label for="exampleFormControlSelect1" for="rol">Rol</label>
 	<select class="form-control {{ $errors-> has('rol_usuario')?'is-invalid':''}}" name="rol_usuario" id="rol" value="{{ isset ($admin->rol_usuario)?$admin->rol_usuario:old('rol_usuario') }}" aria-label="Default select example">
 		<option value="" selected>Seleccione Rol</option>
-		<option {{ ($admin->rol_usuario) == 'administrador' ? 'selected' : '' }}   value="administrador">Administrador</option>
+		<option {{ ($admin->rol_usuario) == 'administrador' ? 'selected' : '' }} value="administrador">Administrador</option>
 		<option {{ ($admin->rol_usuario) == 'gerente' ? 'selected' : '' }} value="gerente">Gerente</option>
 		<option {{ ($admin->rol_usuario) == 'capataz' ? 'selected' : '' }} value="capataz">Capataz</option>
 	</select>

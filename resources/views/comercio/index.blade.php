@@ -41,52 +41,31 @@
 	
 </a>
 	<tbody>
-		@foreach ($comercios as $res)
+		@foreach ($comercio as $res)
 		<tr>
-			<td>{{ $res->idcomercio }}</td>
-			<td>{{ $res->tipocomercio }}</td>
-
-			@forelse(DB::table('proveedors')->where('idproveedor','=',$res->proveedor)->Get() as $proveedor)
-			<td>{{ $proveedor->nombre }}</td>
-			@empty
-			<td>null</td>
-			@endforelse
-			<th>{{ $res->fecha }}</th>
+			<td>{{ $res->id_comercio }}</td>
+			<td>{{ $res->tipo_comercio }}</td>
+			<td>{{ $res->proveedor->nombre_proveedores }}</td>
+			<th>{{ $res->fecha_comercio }}</th>
 			<td>
+				<a class="btn btn-light" href="{{ url('/comercio/'.$res->id_comercio.'/edit') }}" data-toggle="tooltip" data-placement="left" title="Editar">
+					<i class="far fa-edit"></i>
+				</a>
 
-				
-
-				<a class="btn btn-light" href="{{ url('/comercio/'.$res->idcomercio.'/edit') }}" data-toggle="tooltip" data-placement="left" title="Editar">
-                <i class="far fa-edit"></i>
-  
-            </a>
-
-				<form method="post" action="{{ url('/comercio/'.$res->idcomercio) }}"  style="display: inline;">
-            {{csrf_field() }}
-            {{ method_field('DELETE') }}
-            
-            <button class="btn btn-light" type="submit" data-toggle="tooltip" data-placement="left" title="Borrar" onclick="return confirm('¿Borrar?')">
-                <i class="far fa-trash-alt"></i>
-
-
-
-                 
-            </form>
+				<form method="post" action="{{ url('/comercio/'.$res->id_comercio) }}"  style="display: inline;">
+					{{csrf_field() }}
+					{{ method_field('DELETE') }}
 					
-
-
+					<button class="btn btn-light" type="submit" data-toggle="tooltip" data-placement="left" title="Borrar" onclick="return confirm('¿Borrar?')">
+					<i class="far fa-trash-alt"></i>
+				</form>
 			</td>
-
-
 		</tr>
 		@endforeach
-
 	</tbody>
-
-
 </table>
 <div class="text-center" style="padding-left: 250px;">
-	{{ $comercios->links() }}
+	{{ $comercio->links() }}
 </div>
 </div>
 @endsection

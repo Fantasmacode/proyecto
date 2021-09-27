@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRazasTable extends Migration
+class CreateRazaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateRazasTable extends Migration
      */
     public function up()
     {
-        Schema::create('razas', function (Blueprint $table) {
+        Schema::create('raza', function (Blueprint $table) {
             $table->bigIncrements('id_raz');
             $table->String('nombre_raz',30);
         });
@@ -26,6 +26,6 @@ class CreateRazasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('razas');
+        Schema::dropIfExists('raza');
     }
 }
