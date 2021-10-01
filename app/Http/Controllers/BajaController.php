@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\baja;
+use App\Models\bovino;
 use Illuminate\Http\Request;
 
 class BajaController extends Controller
@@ -14,7 +15,7 @@ class BajaController extends Controller
      */
     public function index()
     {
-        $datos['bajas']=Baja::paginate(5);
+        $datos['bajas']=Baja::with('bovino.raza')->paginate(5);
 
         return view('baja.index',$datos);
     }
@@ -26,7 +27,9 @@ class BajaController extends Controller
      */
     public function create()
     {
-        return view('baja.create');    }
+        $bovinos = bovino::whereDoesntHave('baja')->with('raza')->get();
+        return view('baja.create', compact('bovinos'));
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -37,11 +40,12 @@ class BajaController extends Controller
     public function store(Request $request)
     {
         $campos = [
-            'bovino' => 'required|string|max:30',
-            'motivo' => 'required|regex:/^[\pL\s\-]+$/u|max:30'
+            'id_bovino' => 'required',
+            'motivo_baja' => 'required|regex:/^[\pL\s\-]+$/u|max:20',
+            'fecha_baja' => 'required'
         ];
 
-        $mensaje = ["required"=>'El :attribute es requerido'];
+        $mensaje = ["required"=>'El campo :attribute es requerido'];
 
         $this->validate($request,$campos,$mensaje);
 
@@ -62,7 +66,7 @@ class BajaController extends Controller
      * @param  \App\Models\baja  $baja
      * @return \Illuminate\Http\Response
      */
-    public function show(baja $idbaja)
+    public function show(baja $id_baja)
     {
         //
     }
@@ -73,11 +77,12 @@ class BajaController extends Controller
      * @param  \App\Models\baja  $baja
      * @return \Illuminate\Http\Response
      */
-    public function edit($idbaja)
+    public function edit($id_baja)
     {
-        $admin= Baja::findOrFail($idbaja);
+        $admin = Baja::findOrFail($id_baja);
+        $bovinos = bovino::all();
 
-        return view('baja.edit',compact('admin'));
+        return view('baja.edit',compact('admin', 'bovinos'));
     }
 
     /**
@@ -87,21 +92,22 @@ class BajaController extends Controller
      * @param  \App\Models\baja  $baja
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$idbaja)
+    public function update(Request $request,$id_baja)
     {
         $campos = [
-            'bovino' => 'required|string|max:30',
-            'motivo' => 'required|regex:/^[\pL\s\-]+$/u|max:30'
+            'id_bovino' => 'required',
+            'motivo_baja' => 'required|regex:/^[\pL\s\-]+$/u|max:20',
+            'fecha_baja' => 'required'
         ];
 
-        $mensaje = ["required"=>'El :attribute es requerido'];
+        $mensaje = ["required"=>'El campo :attribute es requerido'];
 
         $this->validate($request,$campos,$mensaje);
 
 
         $datoAdmin=request()->except(['_token','_method']);
 
-        Baja::where('idbaja','=',$idbaja)->update($datoAdmin);
+        Baja::where('id_baja','=',$id_baja)->update($datoAdmin);
 
         //$admin= administrador::findOrFail($id);
         //return view('administrador.edit',compact('admin'));
@@ -116,10 +122,10 @@ class BajaController extends Controller
      * @param  \App\Models\baja  $baja
      * @return \Illuminate\Http\Response
      */
-    public function destroy($idbaja)
+    public function destroy($id_baja)
     {
-        $admin=baja::findOrFail($idbaja);
-        baja::destroy($idbaja);  
+        $admin=baja::findOrFail($id_baja);
+        baja::destroy($id_baja);
         return redirect('baja')->with('Mensaje','baja eliminada');
     }
 }

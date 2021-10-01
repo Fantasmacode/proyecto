@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\bovino;
+use App\Models\motivo;
 use App\Models\retorno;
+use App\Models\traslado;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class RetornoController extends Controller
 {
@@ -14,7 +18,7 @@ class RetornoController extends Controller
      */
     public function index()
     {
-        $datos['retornos']=Retorno::paginate(10);
+        $datos['traslados']=Traslado::with('bovino.raza', 'motivo')->whereNotNull('fechar_traslado')->whereNotNull('horar_traslado')->paginate(10);
 
         return view('retorno.index',$datos);
     }
@@ -26,7 +30,9 @@ class RetornoController extends Controller
      */
     public function create()
     {
-        return view('retorno.create');
+        $bovinos = bovino::whereDoesntHave('baja')->get();
+        $motivos = motivo::all();
+        return view('retorno.create', compact('bovinos', 'motivos'));
     }
 
     /**
@@ -38,19 +44,23 @@ class RetornoController extends Controller
     public function store(Request $request)
     {
         $campos = [
-            'nombrebovino' => 'required|string|max:20',
-            
+            'id_bovino' => 'required',
+            'id_moti' => 'required'
         ];
 
-        $mensaje = ["required"=>'El :attribute es requerido'];
+        $mensaje = ["required"=>'El campo :attribute es requerido'];
 
         $this->validate($request,$campos,$mensaje);
 
         //$datoAdmin=request()->all();
+        $request->request->add(['fechar_traslado' => Carbon::now()->format('Y-m-d')]);
+        $request->request->add(['horar_traslado' => Carbon::now()->format('H:i:s')]);
 
         $datoAdmin=request()->except('_token');
+        Traslado::insert($datoAdmin);
 
-        Retorno::insert($datoAdmin);
+        $bovino = bovino::findOrFail($request->id_bovino);
+        $bovino->update(['id_estadob' => 1]);
 
         //return response()->json($datoAdmin);
         return redirect('retorno')->with('Mensaje','Agregado con Exito');
@@ -64,7 +74,7 @@ class RetornoController extends Controller
      * @param  \App\Models\retorno  $retorno
      * @return \Illuminate\Http\Response
      */
-    public function show(retorno $idretorno)
+    public function show(retorno $id_traslado)
     {
         //
     }
@@ -75,11 +85,14 @@ class RetornoController extends Controller
      * @param  \App\Models\retorno  $retorno
      * @return \Illuminate\Http\Response
      */
-    public function edit($idretorno)
+    public function edit($id_traslado)
     {
-        $admin= Retorno::findOrFail($idretorno);
+        $admin= Traslado::findOrFail($id_traslado);
+        $bovinos = bovino::whereDoesntHave('baja')->get();
+        $motivos = motivo::all();
 
-        return view('retorno.edit',compact('admin'));
+
+        return view('retorno.edit',compact('admin', 'bovinos', 'motivos'));
     }
 
     /**
@@ -89,21 +102,27 @@ class RetornoController extends Controller
      * @param  \App\Models\retorno  $retorno
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$idretorno)
+    public function update(Request $request,$id_traslado)
     {
-        $campos = [
-           'nombrebovino' => 'required|string|max:20',
-      
+         $campos = [
+            'id_bovino' => 'required',
+            'id_moti' => 'required'
         ];
 
-        $mensaje = ["required"=>'El :attribute es requerido'];
+        $mensaje = ["required"=>'El campo :attribute es requerido'];
 
         $this->validate($request,$campos,$mensaje);
 
-
         $datoAdmin=request()->except(['_token','_method']);
 
-        Retorno::where('idretorno','=',$idretorno)->update($datoAdmin);
+        $bovinonuevo = bovino::findOrFail($request->id_bovino);
+        $bovinonuevo->update(['id_estadob' => 1]);
+
+        $traslado = traslado::findOrFail($id_traslado);
+        $bovinoantiguo = bovino::findOrFail($traslado->id_bovino);
+        $bovinoantiguo->update(['id_estadob' => 2]);
+
+        traslado::where('id_traslado','=',$id_traslado)->update($datoAdmin);
 
         //$admin= administrador::findOrFail($id);
         //return view('administrador.edit',compact('admin'));
@@ -117,10 +136,10 @@ class RetornoController extends Controller
      * @param  \App\Models\retorno  $retorno
      * @return \Illuminate\Http\Response
      */
-    public function destroy($idretorno)
+    public function destroy($id_traslado)
     {
-        $admin=traslado::findOrFail($idretorno);
-        traslado::destroy($idretorno);  
-        return redirect('retorno')->with('Mensaje','eliminado');
+        $admin=traslado::findOrFail($id_traslado);
+        traslado::destroy($id_traslado);
+        return redirect('retorno')->with('Mensaje','Traslado eliminado');
     }
 }

@@ -38,7 +38,7 @@ class RazaController extends Controller
     public function store(Request $request)
     {
         $campos = [
-            'nombre_raz' => 'required|regex:/^[\pL\s\-]+$/u'
+            'nombre_raz' => 'required|regex:/^[\pL\s\-]+$/u|max:13'
         ];
 
         $mensaje = ["required"=>'El campo :attribute es requerido'];
@@ -90,7 +90,7 @@ class RazaController extends Controller
     public function update(Request $request, $id_raz)
     {
         $campos = [
-            'nombre_raz' => 'required|regex:/^[\pL\s\-]+$/u'
+            'nombre_raz' => 'required|regex:/^[\pL\s\-]+$/u|max:13'
         ];
 
         $mensaje = ["required"=>'El campo :attribute es requerido'];

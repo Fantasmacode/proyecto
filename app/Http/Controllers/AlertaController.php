@@ -38,10 +38,11 @@ class AlertaController extends Controller
     public function store(Request $request)
     {
         $campos = [
-            'mensajealerta' => 'required|string|max:15'
+            'mensaje_alerta' => 'required|string|max:50',
+            'id_bovino' => 'required'
         ];
 
-        $mensaje = ["required"=>'El :attribute es requerido'];
+        $mensaje = ["required"=>'El campo :attribute es requerido'];
 
         $this->validate($request,$campos,$mensaje);
 
@@ -61,7 +62,7 @@ class AlertaController extends Controller
      * @param  \App\Models\alerta  $alerta
      * @return \Illuminate\Http\Response
      */
-    public function show(alerta $idalerta)
+    public function show(alerta $id_alerta)
     {
         //
     }
@@ -72,9 +73,9 @@ class AlertaController extends Controller
      * @param  \App\Models\alerta  $alerta
      * @return \Illuminate\Http\Response
      */
-    public function edit($idalerta)
+    public function edit($id_alerta)
     {
-        $admin= Alerta::findOrFail($idalerta);
+        $admin= Alerta::findOrFail($id_alerta);
 
         return view('alerta.edit',compact('admin'));
     }
@@ -86,20 +87,21 @@ class AlertaController extends Controller
      * @param  \App\Models\alerta  $alerta
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$idalerta)
+    public function update(Request $request,$id_alerta)
     {
         $campos = [
-            'mensajealerta' => 'required|string|max:15'
+            'mensaje_alerta' => 'required|string|max:50',
+            'id_bovino' => 'required'
         ];
 
-        $mensaje = ["required"=>'El :attribute es requerido'];
+        $mensaje = ["required"=>'El campo :attribute es requerido'];
 
         $this->validate($request,$campos,$mensaje);
 
 
         $datoAdmin=request()->except(['_token','_method']);
 
-        Alerta::where('idalerta','=',$idalerta)->update($datoAdmin);
+        Alerta::where('id_alerta','=',$id_alerta)->update($datoAdmin);
 
         //$admin= administrador::findOrFail($id);
         //return view('administrador.edit',compact('admin'));
@@ -113,10 +115,10 @@ class AlertaController extends Controller
      * @param  \App\Models\alerta  $alerta
      * @return \Illuminate\Http\Response
      */
-    public function destroy($idalerta)
+    public function destroy($id_alerta)
     {
-        $admin=alerta::findOrFail($idalerta);
-        alerta::destroy($idalerta);  
+        $admin=alerta::findOrFail($id_alerta);
+        alerta::destroy($id_alerta);
         return redirect('alerta')->with('Mensaje','Alerta eliminada');
     }
 }

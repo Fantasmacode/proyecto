@@ -48,12 +48,12 @@ class CreateUserController extends Controller
             'nombres_usuario' => 'required|max:30',
             'apellidos_usuario' => 'required|max:30',
             'tipodoc_usuario' => 'required|max:30',
-            'documento_usuario' => 'required|max:20',
-            'correo_usuario' => 'required|max:40',
-            'direccion_usuario' => 'required|max:40',
-            'telefono_usuario' => 'required|max:20',
-            'rol_usuario' => 'required|max:20',
-            'contrasena_usuario' => 'required|max:300',
+            'documento_usuario' => 'required|max:30',
+            'correo_usuario' => 'required|max:50',
+            'direccion_usuario' => 'required|max:50',
+            'telefono_usuario' => 'required|max:10',
+            'rol_usuario' => 'required',
+            'contrasena_usuario' => 'required|max:100|confirmed',
         ];
 
         $mensaje = ["required"=>'El campo :attribute es requerido'];
@@ -119,19 +119,24 @@ class CreateUserController extends Controller
             'nombres_usuario' => 'required|max:30',
             'apellidos_usuario' => 'required|max:30',
             'tipodoc_usuario' => 'required|max:30',
-            'documento_usuario' => 'required|max:20',
-            'correo_usuario' => 'required|max:40',
-            'direccion_usuario' => 'required|max:40',
-            'telefono_usuario' => 'required|max:20',
-            'rol_usuario' => 'required|max:20'
+            'documento_usuario' => 'required|max:30',
+            'correo_usuario' => 'required|max:50',
+            'direccion_usuario' => 'required|max:50',
+            'telefono_usuario' => 'required|max:10',
+            'rol_usuario' => 'required',
         ];
+
+        $datoAdmin = request()->except(['_token','_method', 'contrasena_usuario', 'contrasena_usuario_confirmation']);
+
+        if($request->contrasena_usuario) {
+            $campos['contrasena_usuario'] = 'required|max:100|confirmed';
+            $datoAdmin = request()->except(['_token','_method', 'contrasena_usuario_confirmation']);
+            $datoAdmin['contrasena_usuario'] = bcrypt($request->contrasena_usuario);
+        }
 
         $mensaje = ["required"=>'El campo :attribute es requerido'];
 
         $this->validate($request,$campos,$mensaje);
-
-
-        $datoAdmin=request()->except(['_token','_method']);
 
         user::where('id_usuario','=',$id)->update($datoAdmin);
 

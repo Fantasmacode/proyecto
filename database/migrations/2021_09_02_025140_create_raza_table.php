@@ -15,7 +15,7 @@ class CreateRazaTable extends Migration
     {
         Schema::create('raza', function (Blueprint $table) {
             $table->bigIncrements('id_raz');
-            $table->String('nombre_raz',30);
+            $table->String('nombre_raz',13);
         });
     }
 

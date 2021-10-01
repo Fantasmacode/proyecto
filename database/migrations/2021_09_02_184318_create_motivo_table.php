@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEstadolotesTable extends Migration
+class CreateMotivoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateEstadolotesTable extends Migration
      */
     public function up()
     {
-        Schema::create('estadolotes', function (Blueprint $table) {
-            $table->bigIncrements('idestadolote');
-            $table->String('estado',15);
-            $table->timestamps();
+        Schema::create('motivo', function (Blueprint $table) {
+            $table->bigIncrements('id_moti');
+            $table->String('motivo_moti',30);
         });
     }
 
@@ -27,6 +26,6 @@ class CreateEstadolotesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('estadolotes');
+        Schema::dropIfExists('motivo');
     }
 }

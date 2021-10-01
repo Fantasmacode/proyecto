@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUbicacionsTable extends Migration
+class CreateEstadobovinoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateUbicacionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ubicacions', function (Blueprint $table) {
-            $table->bigIncrements('idubicacion');
-            $table->String('latitud',15);
-            $table->String('longitud',15);
-            $table->timestamps();
+        Schema::create('estado_bovino', function (Blueprint $table) {
+            $table->bigIncrements('id_estadob');
+            $table->String('nombre_estadob',15);
         });
     }
 
@@ -28,6 +26,6 @@ class CreateUbicacionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ubicacions');
+        Schema::dropIfExists('estado_bovino');
     }
 }

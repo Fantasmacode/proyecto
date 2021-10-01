@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\sectorizacion;
+use App\Models\lote;
 use Illuminate\Http\Request;
 
 class SectorizacionController extends Controller
@@ -14,9 +15,9 @@ class SectorizacionController extends Controller
      */
     public function index()
     {
-      $datos['sectorizacions']=Sectorizacion::paginate(5);
+        $datos['sectorizacions']=Sectorizacion::with('lote')->paginate(5);
 
-        return view('sectorizacion.index',$datos);  //
+        return view('sectorizacion.index',$datos);
     }
 
     /**
@@ -26,7 +27,8 @@ class SectorizacionController extends Controller
      */
     public function create()
     {
-        return view('sectorizacion.create');
+        $lotes = lote::all();
+        return view('sectorizacion.create', compact('lotes'));
     }
 
     /**
@@ -38,11 +40,12 @@ class SectorizacionController extends Controller
     public function store(Request $request)
     {
         $campos = [
-            'latitud' => 'required|string|max:15',
-            'longitud' => 'required|string|max:15'
+            'id_lote' => 'required',
+            'latitud_sectorizacion' => 'required',
+            'longitud_sectorizacion' => 'required'
         ];
 
-        $mensaje = ["required"=>'El :attribute es requerido'];
+        $mensaje = ["required"=>'El campo :attribute es requerido'];
 
         $this->validate($request,$campos,$mensaje);
 
@@ -74,11 +77,12 @@ class SectorizacionController extends Controller
      * @param  \App\Models\bovino  $bovino
      * @return \Illuminate\Http\Response
      */
-    public function edit($idsectorizacion)
+    public function edit($id_sectorizacion)
     {
-        $admin= Sectorizacion::findOrFail($idsectorizacion);
+        $admin = Sectorizacion::with('lote')->findOrFail($id_sectorizacion);
+        $lotes = lote::all();
 
-        return view('sectorizacion.edit',compact('admin'));
+        return view('sectorizacion.edit',compact('admin', 'lotes'));
     }
 
     /**
@@ -88,21 +92,22 @@ class SectorizacionController extends Controller
      * @param  \App\Models\bovino  $bovino
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$idsectorizacion)
+    public function update(Request $request,$id_sectorizacion)
     {
         $campos = [
-           'latitud' => 'required|string|max:15',
-            'longitud' => 'required|string|max:15'
+            'id_lote' => 'required',
+            'latitud_sectorizacion' => 'required',
+            'longitud_sectorizacion' => 'required'
         ];
 
-        $mensaje = ["required"=>'El :attribute es requerido'];
+        $mensaje = ["required"=>'El campo :attribute es requerido'];
 
         $this->validate($request,$campos,$mensaje);
 
 
         $datoAdmin=request()->except(['_token','_method']);
 
-        Sectorizacion::where('idsectorizacion','=',$idsectorizacion)->update($datoAdmin);
+        Sectorizacion::where('id_sectorizacion','=',$id_sectorizacion)->update($datoAdmin);
 
         //$admin= administrador::findOrFail($id);
         //return view('administrador.edit',compact('admin'));
@@ -117,10 +122,10 @@ class SectorizacionController extends Controller
      * @param  \App\Models\bovino  $bovino
      * @return \Illuminate\Http\Response
      */
-    public function destroy($idsectorizacion)
+    public function destroy($id_sectorizacion)
     {
-        $admin=sectorizacion::findOrFail($idsectorizacion);
-        sectorizacion::destroy($idsectorizacion);  
+        $admin=sectorizacion::findOrFail($id_sectorizacion);
+        sectorizacion::destroy($id_sectorizacion);
         return redirect('sectorizacion')->with('Mensaje','Sector eliminado');
     }
 }

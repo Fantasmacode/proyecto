@@ -15,24 +15,18 @@
             <th>Raza</th>
             <th>Motivo de traslado</th>
             <th>Fecha de salida</th>
-            
-            
+            <th>Hora de salida</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (DB::table('traslados')->get() as $traslado)
+        @foreach ($salidas as $salida)
         <tr>
-            @foreach(DB::table('bovinos')->where('idbovino', '=', $traslado->bovino)->get() as $bovi)
-            <td>{{ $traslado->idtraslado }}</td>
-            <td>{{ $traslado->bovino }}</td>
-            @foreach(DB::table('razas')->where('idraza', '=', $bovi->raza)->get() as $za)
-            <td>{{ $za->nombreraza }}</td>
-            @endforeach
-            <td>{{ $traslado->motivo }}</td>
-            <td>{{ $traslado->fechasalida }}</td>
-            @endforeach
-
-           
+            <td>{{ $salida->id_traslado }}</td>
+            <td>{{ $salida->bovino->id_bovino }}</td>
+            <td>{{ $salida->bovino->raza->nombre_raz }}</td>
+            <td>{{ $salida->motivo->motivo_moti }}</td>
+            <td>{{ $salida->fechas_traslado }}</td>
+            <td>{{ $salida->horas_traslado }}</td>
         </tr>
         @endforeach
     </tbody>

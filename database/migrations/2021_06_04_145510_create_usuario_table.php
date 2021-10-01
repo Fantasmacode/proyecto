@@ -22,7 +22,7 @@ class CreateUsuarioTable extends Migration
             $table->string('correo_usuario', 50);
             $table->string('direccion_usuario', 50);
             $table->string('telefono_usuario', 10);
-            $table->string('contrasena_usuario', 300);
+            $table->string('contrasena_usuario', 100);
             $table->enum('rol_usuario', ['administrador','gerente','capataz']);
         });
     }

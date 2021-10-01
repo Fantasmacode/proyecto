@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\bovino;
 use App\Models\proveedor;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,9 +19,13 @@ class comercio extends Model
         'fecha_comercio',
     ];
 
-    
     public function proveedor()
     {
         return $this->belongsTo(Proveedor::class, 'id_proveedores');
+    }
+
+    public function bovinos()
+    {
+        return $this->hasMany(bovino::class, 'id_comercio');
     }
 }

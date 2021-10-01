@@ -15,10 +15,10 @@ class CreateProveedoresTable extends Migration
     {
         Schema::create('proveedores', function (Blueprint $table) {
             $table->bigIncrements('id_proveedores');
-            $table->String('nombre_proveedores',20);
-            $table->String('direccion_proveedores',10);
-            $table->String('telefono_proveedores',15);
-            $table->String('correo_proveedores',50);
+            $table->String('nombre_proveedores',50);
+            $table->String('direccion_proveedores',50);
+            $table->String('telefono_proveedores',10);
+            $table->String('correo_proveedores',30);
         });
     }
 

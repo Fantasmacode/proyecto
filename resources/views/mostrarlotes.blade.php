@@ -15,19 +15,20 @@
             <th>Extension</th>
             <th>Nombre de Lote</th>
             <th>Fecha de Creacion</th>
-            
-            
+            <th>Fecha de Cierre</th>
+            <th>Cantidad de Bovinos</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (DB::table('lotes')->get() as $lote)
+        @foreach ($lotes as $lote)
         <tr>
-            <td>{{ $lote->idlote }}</td>
-            <td>{{ $lote->area }}</td>
-            <td>{{ $lote->extension }}</td>
-            <td>{{ $lote->nombrelote }}</td>
-            <td>{{ $lote->fechacreacion }}</td>
-           
+            <td>{{ $lote->id_lote }}</td>
+            <td>{{ $lote->area_lote }}</td>
+            <td>{{ $lote->extension_lote }}</td>
+            <td>{{ $lote->nombre_lote }}</td>
+            <td>{{ $lote->fecha_lote }}</td>
+            <td>{{ $lote->fcierre_lote }}</td>
+            <td>{{ $lote->bovinos_count }}</td>
         </tr>
         @endforeach
     </tbody>

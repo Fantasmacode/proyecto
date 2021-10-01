@@ -15,24 +15,16 @@
             <th>Raza</th>
             <th>Motivo</th>
             <th>Fecha de Muerte</th>
-            
-            
         </tr>
     </thead>
     <tbody>
-        @foreach (DB::table('bajas')->get() as $baja)
+        @foreach ($bajas as $baja)
         <tr>
-            @foreach(DB::table('bovinos')->where('idbovino', '=', $res->bovino)->get() as $bo)
-            <td>{{ $baja->idbaja }}</td>
-            <td>{{ $baja->bovino }}</td>
-            @foreach(DB::table('razas')->where('idraza', '=', $bo->raza)->get() as $ra)
-            <td>{{ $ra->nombreraza }}</td>
-            @endforeach
-            <td>{{ $baja->motivo }}</td>
-            <td>{{ $baja->fechamuerte }}</td>
-            @endforeach
-
-           
+            <td>{{ $baja->id_baja }}</td>
+            <td>{{ $baja->bovino->id_bovino }}</td>
+            <td>{{ $baja->bovino->raza->nombre_raz }}</td>
+            <td>{{ $baja->motivo_baja }}</td>
+            <td>{{ $baja->fecha_baja }}</td>
         </tr>
         @endforeach
     </tbody>

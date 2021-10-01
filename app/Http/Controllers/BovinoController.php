@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\bovino;
+use App\Models\comercio;
+use App\Models\estadobovino;
+use App\Models\lote;
+use App\Models\raza;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class BovinoController extends Controller
@@ -15,7 +20,7 @@ class BovinoController extends Controller
      */
     public function index()
     {
-      $datos['bovinos']=Bovino::paginate(10);
+        $datos['bovinos']=Bovino::whereDoesntHave('baja')->with('estado', 'raza', 'lote', 'comercio', 'usuario')->paginate(10);
 
         return view('bovino.index',$datos);  //
     }
@@ -27,7 +32,11 @@ class BovinoController extends Controller
      */
     public function create()
     {
-        return view('bovino.create');
+        $estados = estadobovino::all();
+        $razas = raza::all();
+        $lotes = lote::all();
+        $comercios = comercio::all();
+        return view('bovino.create', compact('estados', 'razas', 'lotes', 'comercios'));
     }
 
     /**
@@ -38,17 +47,19 @@ class BovinoController extends Controller
      */
     public function store(Request $request)
     {
+        $request->request->add(['id_usuario' => Auth::user()->id_usuario]);
         $campos = [
-            'peso' => 'required|integer|between:1,1100',
-            'usuario' => 'required|string|max:20',
-            'estado' => 'required|string|max:10',
-            'edad' => 'required|integer|between:1,22',
-            'raza' => 'required|string|max:30',
-            'finalidad' => 'required|string|max:20',
-            'lote' => 'required|string|max:15'
+            'id_raz' => 'required',
+            'peso_bovino' => 'required|numeric|between:1,1100',
+            'edad_bovino' => 'required|integer|between:1,22',
+            'finalidad_bovino' => 'required|string|max:15',
+            'id_estadob' => 'required',
+            'id_lote' => 'required',
+            'id_comercio' => 'required',
+            'id_usuario' => 'required',
         ];
 
-        $mensaje = ["required"=>'El :attribute es requerido'];
+        $mensaje = ["required"=>'El campo :attribute es requerido'];
 
         $this->validate($request,$campos,$mensaje);
 
@@ -69,7 +80,7 @@ class BovinoController extends Controller
      * @param  \App\Models\bovino  $bovino
      * @return \Illuminate\Http\Response
      */
-    public function show(bovino $idbovino)
+    public function show(bovino $id_bovino)
     {
         //
     }
@@ -80,11 +91,15 @@ class BovinoController extends Controller
      * @param  \App\Models\bovino  $bovino
      * @return \Illuminate\Http\Response
      */
-    public function edit($idbovino)
+    public function edit($id_bovino)
     {
-        $admin= Bovino::findOrFail($idbovino);
+        $admin= Bovino::findOrFail($id_bovino);
+        $estados = estadobovino::all();
+        $razas = raza::all();
+        $lotes = lote::all();
+        $comercios = comercio::all();
 
-        return view('bovino.edit',compact('admin'));
+        return view('bovino.edit',compact('admin', 'estados', 'razas', 'lotes', 'comercios'));
     }
 
     /**
@@ -94,26 +109,26 @@ class BovinoController extends Controller
      * @param  \App\Models\bovino  $bovino
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$idbovino)
+    public function update(Request $request,$id_bovino)
     {
         $campos = [
-            'peso' => 'required|integer|between:1,1100',
-            'usuario' => 'required|string|max:20',
-            'estado' => 'required|string|max:10',
-            'edad' => 'required|integer|between:1,100',
-            'raza' => 'required|string|max:30',
-            'finalidad' => 'required|string|max:20',
-            'lote' => 'required|string|max:15'
+            'id_raz' => 'required',
+            'peso_bovino' => 'required|numeric|between:1,1100',
+            'edad_bovino' => 'required|integer|between:1,22',
+            'finalidad_bovino' => 'required|string|max:15',
+            'id_estadob' => 'required',
+            'id_lote' => 'required',
+            'id_comercio' => 'required',
         ];
 
-        $mensaje = ["required"=>'El :attribute es requerido'];
+        $mensaje = ["required"=>'El campo :attribute es requerido'];
 
         $this->validate($request,$campos,$mensaje);
 
 
         $datoAdmin=request()->except(['_token','_method']);
 
-        Bovino::where('idbovino','=',$idbovino)->update($datoAdmin);
+        Bovino::where('id_bovino','=',$id_bovino)->update($datoAdmin);
 
         //$admin= administrador::findOrFail($id);
         //return view('administrador.edit',compact('admin'));
@@ -128,10 +143,10 @@ class BovinoController extends Controller
      * @param  \App\Models\bovino  $bovino
      * @return \Illuminate\Http\Response
      */
-    public function destroy($idbovino)
+    public function destroy($id_bovino)
     {
-        $admin=bovino::findOrFail($idbovino);
-        bovino::destroy($idbovino);  
+        $admin=bovino::findOrFail($id_bovino);
+        bovino::destroy($id_bovino);
         return redirect('bovino')->with('Mensaje','Bovino eliminado');
     }
 }

@@ -3,7 +3,7 @@
 @section('form')
 
 <div class="container">
-<form method="post" action="{{ url('/lote/'.$admin->idlote) }}" enctype="multipart/form-data">
+<form method="post" action="{{ url('/lote/'.$admin->id_lote) }}" enctype="multipart/form-data">
 	{{ csrf_field() }}
 	{{ method_field('PATCH') }}
 

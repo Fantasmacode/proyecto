@@ -38,10 +38,10 @@ class ProveedorController extends Controller
     public function store(Request $request)
     {
         $campos = [
-            'nombre_proveedores' => 'required|regex:/^[\pL\s\-]+$/u|max:20',
-            'direccion_proveedores' => 'required|string|max:10',
-            'telefono_proveedores' => 'required|string|max:15',
-            'correo_proveedores' => 'required|string|max:20'
+            'nombre_proveedores' => 'required|regex:/^[\pL\s\-]+$/u|max:50',
+            'direccion_proveedores' => 'required|string|max:50',
+            'telefono_proveedores' => 'required|string|max:10',
+            'correo_proveedores' => 'required|string|max:30'
         ];
 
         $mensaje = ["required"=>'El campo :attribute es requerido'];
@@ -93,10 +93,10 @@ class ProveedorController extends Controller
     public function update(Request $request,$id_proveedores)
     {
         $campos = [
-            'nombre_proveedores' => 'required|regex:/^[\pL\s\-]+$/u|max:20',
-            'direccion_proveedores' => 'required|string|max:10',
-            'telefono_proveedores' => 'required|string|max:15',
-            'correo_proveedores' => 'required|string|max:20'
+            'nombre_proveedores' => 'required|regex:/^[\pL\s\-]+$/u|max:50',
+            'direccion_proveedores' => 'required|string|max:50',
+            'telefono_proveedores' => 'required|string|max:10',
+            'correo_proveedores' => 'required|string|max:30'
         ];
 
         $mensaje = ["required"=>'El campo :attribute es requerido'];

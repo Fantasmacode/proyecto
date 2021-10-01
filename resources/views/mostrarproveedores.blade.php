@@ -15,18 +15,16 @@
             <th>Dirección</th>
             <th>Teléfono</th>
             <th>Correo</th>
-            
-            
         </tr>
     </thead>
     <tbody>
-        @foreach (DB::table('proveedors')->get() as $proveedor)
+        @foreach ($proveedores as $proveedor)
         <tr>
-            <td>{{ $proveedor->idproveedor }}</td>
-            <td>{{ $proveedor->nombre }}</td>
-            <td>{{ $proveedor->direccion }}</td>
-            <th>{{ $proveedor->telefono }}</th>
-            <th>{{ $proveedor->correo }}</th>
+            <td>{{ $proveedor->id_proveedores }}</td>
+            <td>{{ $proveedor->nombre_proveedores }}</td>
+            <td>{{ $proveedor->direccion_proveedores }}</td>
+            <th>{{ $proveedor->telefono_proveedores }}</th>
+            <th>{{ $proveedor->correo_proveedores }}</th>
            
         </tr>
         @endforeach

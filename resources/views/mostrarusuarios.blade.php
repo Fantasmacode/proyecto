@@ -10,7 +10,8 @@
 <table class="table table-dark">
     <thead class="thead-light">
         <tr>
-           <th>Nombre</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
             <th>Documento</th>
             <th>Correo</th>
             <th>Telefono</th>
@@ -20,14 +21,14 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (DB::table('users')->get() as $user)
+        @foreach ($usuarios as $usuario)
         <tr>
-            <td>{{ $user->nombre }}</td>
-            <td>{{ $user->documento }}</td>
-            <td>{{ $user->email }}</td>
-            <td>{{ $user->telefono }}</td>
-            <td>{{ $user->rol }}</td>
-           
+            <td>{{ $usuario->nombres_usuario }}</td>
+            <td>{{ $usuario->apellidos_usuario }}</td>
+            <td>{{ $usuario->documento_usuario }}</td>
+            <td>{{ $usuario->correo_usuario }}</td>
+            <td>{{ $usuario->telefono_usuario }}</td>
+            <td>{{ $usuario->rol_usuario }}</td>
         </tr>
         @endforeach
     </tbody>

@@ -43,9 +43,9 @@
 	<div class="form-group">
 	<label class="col-sm-8 control-label">Rol</label>
 	<select class="form-select {{ $errors-> has('nom_rol')?'is-invalid':''}}" name="nom_rol" id="nom_rol" value="{{ isset ($updateimage->nom_rol)?$updateimage->nom_rol:old('nom_rol') }}" aria-label="Default select example">
-	<option selected>Seleccione Rol</option>
+	<option value="" selected>Seleccione Rol</option>
 		@foreach (DB::table('tipo_rol')->select('nom_rol')->get() as $rol)
-    <option value="{{ $rol->nom_rol }}">{{ $rol->nom_rol }}</option>
+    	<option value="{{ $rol->nom_rol }}">{{ $rol->nom_rol }}</option>
     	@endforeach
     </select>
     {!! $errors->first('nom_rol' , '<div class="invalid-feedback">:message</div>') !!}

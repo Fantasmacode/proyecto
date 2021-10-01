@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\bovino;
+use App\Models\motivo;
 use App\Models\traslado;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TrasladoController extends Controller
@@ -14,9 +17,9 @@ class TrasladoController extends Controller
      */
     public function index()
     {
-      $datos['traslados']=Traslado::paginate(10);
+        $datos['traslados']=Traslado::with('bovino.raza', 'motivo')->whereNotNull('fechas_traslado')->whereNotNull('horas_traslado')->paginate(10);
 
-        return view('traslado.index',$datos);  //
+        return view('traslado.index',$datos);
     }
 
     /**
@@ -26,7 +29,9 @@ class TrasladoController extends Controller
      */
     public function create()
     {
-        return view('traslado.create');
+        $bovinos = bovino::whereDoesntHave('baja')->get();
+        $motivos = motivo::all();
+        return view('traslado.create', compact('bovinos', 'motivos'));
     }
 
     /**
@@ -38,20 +43,22 @@ class TrasladoController extends Controller
     public function store(Request $request)
     {
         $campos = [  
-            'bovino' => 'required|string|max:30',
-            'motivo' => 'required|regex:/^[\pL\s\-]+$/u|max:30'
-
-            
+            'id_bovino' => 'required',
+            'id_moti' => 'required'
         ];
 
-        $mensaje = ["required"=>'El :attribute es requerido'];
+        $mensaje = ["required"=>'El campo :attribute es requerido'];
 
         $this->validate($request,$campos,$mensaje);
 
         //$datoAdmin=request()->all();
+        $request->request->add(['fechas_traslado' => Carbon::now()->format('Y-m-d')]);
+        $request->request->add(['horas_traslado' => Carbon::now()->format('H:i:s')]);
+
+        $bovino = bovino::findOrFail($request->id_bovino);
+        $bovino->update(['id_estadob' => 2]);
 
         $datoAdmin=request()->except('_token');
-
         Traslado::insert($datoAdmin);
 
         //return response()->json($datoAdmin);
@@ -65,7 +72,7 @@ class TrasladoController extends Controller
      * @param  \App\Models\bovino  $bovino
      * @return \Illuminate\Http\Response
      */
-    public function show(traslado $idtraslado)
+    public function show(traslado $id_traslado)
     {
         //
     }
@@ -76,11 +83,13 @@ class TrasladoController extends Controller
      * @param  \App\Models\bovino  $bovino
      * @return \Illuminate\Http\Response
      */
-    public function edit($idtraslado)
+    public function edit($id_traslado)
     {
-        $admin= Traslado::findOrFail($idtraslado);
+        $admin= Traslado::findOrFail($id_traslado);
+        $bovinos = bovino::whereDoesntHave('baja')->get();
+        $motivos = motivo::all();
 
-        return view('traslado.edit',compact('admin'));
+        return view('traslado.edit',compact('admin', 'bovinos', 'motivos'));
     }
 
     /**
@@ -90,30 +99,32 @@ class TrasladoController extends Controller
      * @param  \App\Models\bovino  $bovino
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$idtraslado)
+    public function update(Request $request,$id_traslado)
     {
         $campos = [
-
-           'bovino' => 'required|string|max:30',
-           'motivo' => 'required|regex:/^[\pL\s\-]+$/u|max:30'
-
-      
+            'id_bovino' => 'required',
+            'id_moti' => 'required'
         ];
 
-        $mensaje = ["required"=>'El :attribute es requerido'];
+        $mensaje = ["required"=>'El campo :attribute es requerido'];
 
         $this->validate($request,$campos,$mensaje);
 
-
         $datoAdmin=request()->except(['_token','_method']);
 
-        Traslado::where('idtraslado','=',$idtraslado)->update($datoAdmin);
+        $bovinonuevo = bovino::findOrFail($request->id_bovino);
+        $bovinonuevo->update(['id_estadob' => 2]);
+
+        $traslado = traslado::findOrFail($id_traslado);
+        $bovinoantiguo = bovino::findOrFail($traslado->id_bovino);
+        $bovinoantiguo->update(['id_estadob' => 1]);
+
+        Traslado::where('id_traslado','=',$id_traslado)->update($datoAdmin);
 
         //$admin= administrador::findOrFail($id);
         //return view('administrador.edit',compact('admin'));
 
         return redirect('traslado')->with('Mensaje','Modificado con exito');
-
     }
 
     /**
@@ -122,14 +133,14 @@ class TrasladoController extends Controller
      * @param  \App\Models\bovino  $bovino
      * @return \Illuminate\Http\Response
      */
-    public function destroy($idtraslado)
+    public function destroy($id_traslado)
     {
-        $admin=traslado::findOrFail($idtraslado);
-        traslado::destroy($idtraslado);  
-        return redirect('traslado')->with('Mensaje','Bovino eliminado');
+        $admin=traslado::findOrFail($id_traslado);
+        traslado::destroy($id_traslado);
+        return redirect('traslado')->with('Mensaje','Traslado eliminado');
     }
 }
- 
+
 
 
 

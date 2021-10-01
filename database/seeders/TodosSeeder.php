@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\usuario;
 use Illuminate\Support\Facades\Hash;
+use DB;
 
 class TodosSeeder extends Seeder
 {
@@ -38,5 +39,35 @@ class TodosSeeder extends Seeder
             'contrasena_usuario' => Hash::make('admin'),
         	'rol_usuario' => 'administrador',
         ]);
+
+        DB::table('estado_lote')->insert(array(
+            array(
+                'nombre_estadol' => 'Abierto',
+            ),
+            array(
+                'nombre_estadol' => 'Cerrado',
+            ),
+            array(
+                'nombre_estadol' => 'Pendiente',
+            ),
+        ));
+
+        DB::table('estado_bovino')->insert(array(
+            array(
+                'nombre_estadob' => 'Activo',
+            ),
+            array(
+                'nombre_estadob' => 'Inactivo',
+            ),
+        ));
+
+        DB::table('motivo')->insert(array(
+            array(
+                'motivo_moti' => 'Llevar a zona de ordeño',
+            ),
+            array(
+                'motivo_moti' => 'Llevar a veterinario',
+            ),
+        ));
     }
 }

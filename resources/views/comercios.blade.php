@@ -12,22 +12,17 @@
         <tr>
             <th>Id</th>
             <th>Tipo de comercio</th>
-            <th>Proveedores</th>
+            <th>Proveedor</th>
             <th>Fecha</th>
-
-            
-            
         </tr>
     </thead>
     <tbody>
-        @foreach (DB::table('comercios')->get() as $comercio)
+        @foreach ($comercios as $comercio)
         <tr>
-            <td>{{ $comercio->idcomercio }}</td>
-            <td>{{ $comercio->tipocomercio }}</td>
-            <td>{{ $comercio->proveedor }}</td>
-            <td>{{ $comercio->fecha }}</td>
-
-           
+            <td>{{ $comercio->id_comercio }}</td>
+            <td>{{ $comercio->tipo_comercio }}</td>
+            <td>{{ $comercio->proveedor->nombre_proveedores }}</td>
+            <td>{{ $comercio->fecha_comercio }}</td>
         </tr>
         @endforeach
     </tbody>

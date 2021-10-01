@@ -60,7 +60,7 @@
                 
                         <a class="collapse-item" href="{{ url('bovino') }}" >Bovinos</a>
                         <a class="collapse-item" href="{{ url('raza') }}" >Raza</a>
-                        <a class="collapse-item" href="{{ url('mostrarestado') }}">Estado</a>
+                        <!-- <a class="collapse-item" href="{{ url('mostrarestado') }}">Estado</a> -->
                         <a class="collapse-item" href="{{ url('comercio') }}">Comercio</a>
                         <a class="collapse-item" href="{{ url('baja') }}">Muertes</a>
                         <a class="collapse-item" href="{{ url('proveedor') }}">Proveedores</a>
@@ -83,7 +83,7 @@
                     <div class="bg-#008080 py-2 collapse-inner rounded">
                 
                         <a class="collapse-item" href="{{ url('lote') }}" >Agregar Lote</a>
-                        <a class="collapse-item" href="{{ url('mostrarestadolote') }}">Estado</a>
+                        <a class="collapse-item" href="{{ url('mostrarestadolote') }}">Filtro de Lotes</a>
                         <a class="collapse-item" href="{{ url('sectorizacion') }}">Sectorización</a>
 
 

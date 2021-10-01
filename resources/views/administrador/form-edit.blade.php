@@ -55,6 +55,18 @@
 	{!! $errors->first('rol_usuario' , '<div class="invalid-feedback">:message</div>') !!}
 </div>
 
+<div class="form-group">
+	<label class="control-label" for="password">Contraseña</label>
+	<input type="password" class="form-control {{ $errors-> has('contrasena_usuario')?'is-invalid':''}}" name="contrasena_usuario" id="password" value="{{ isset ($admin->contrasena_usuario) ? old('contrasena_usuario') : '' }}">
+	{!! $errors->first('contrasena_usuario' , '<div class="invalid-feedback">:message</div>') !!}
+</div>
+
+<div class="form-group">
+	<label class="control-label" for="cpassword">Confirmar contraseña</label>
+	<input type="password" class="form-control {{ $errors-> has('contrasena_usuario_confirmation')?'is-invalid':''}}" name="contrasena_usuario_confirmation" id="cpassword" value="{{ isset ($admin->contrasena_usuario_confirmation)?$admin->contrasena_usuario_confirmation:old('contrasena_usuario_confirmation') }}">
+	{!! $errors->first('contrasena_usuario_confirmation' , '<div class="invalid-feedback">:message</div>') !!}
+</div>
+
 <button type="submit" class="btn btn-success">
 	<i class="fas fa-save"></i>
 </button>

@@ -37,12 +37,12 @@ class UbicacionController extends Controller
     public function store(Request $request)
     {
         $campos = [
-            'latitud' => 'required|string|max:15',
-            'longitud' => 'required|string|max:15'
-       
+            'id_bovino' => 'required',
+            'latitud_ubicacion' => 'required',
+            'longitud_ubicacion' => 'required',
         ];
 
-        $mensaje = ["required"=>'El :attribute es requerido'];
+        $mensaje = ["required"=>'El campo :attribute es requerido'];
 
         $this->validate($request,$campos,$mensaje);
 
@@ -53,7 +53,7 @@ class UbicacionController extends Controller
         Ubicacion::insert($datoAdmin);
 
         //return response()->json($datoAdmin);
-        return redirect('ubicacion')->with('Mensaje','Ubicacion Agregada con Exito');
+        return redirect('ubicacion')->with('Mensaje','Ubicación Agregada con Exito');
 
     }
 
@@ -63,7 +63,7 @@ class UbicacionController extends Controller
      * @param  \App\Models\ubicacion  $ubicacion
      * @return \Illuminate\Http\Response
      */
-    public function show(ubicacion $idubicacion)
+    public function show(ubicacion $id_ubicacion)
     {
         //
     }
@@ -74,9 +74,9 @@ class UbicacionController extends Controller
      * @param  \App\Models\ubicacion  $ubicacion
      * @return \Illuminate\Http\Response
      */
-    public function edit($idubicacion)
+    public function edit($id_ubicacion)
     {
-        $admin= Ubicacion::findOrFail($idubicacion);
+        $admin= Ubicacion::findOrFail($id_ubicacion);
 
         return view('ubicacion.edit',compact('admin'));
     }
@@ -88,26 +88,27 @@ class UbicacionController extends Controller
      * @param  \App\Models\ubicacion  $ubicacion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$idubicacion)
+    public function update(Request $request,$id_ubicacion)
     {
         $campos = [
-            'latitud' => 'required|string|max:15',
-            'longitud' => 'required|string|max:10'
+            'id_bovino' => 'required',
+            'latitud_ubicacion' => 'required',
+            'longitud_ubicacion' => 'required',
         ];
 
-        $mensaje = ["required"=>'El :attribute es requerido'];
+        $mensaje = ["required"=>'El campo :attribute es requerido'];
 
         $this->validate($request,$campos,$mensaje);
 
 
         $datoAdmin=request()->except(['_token','_method']);
 
-        Ubicacion::where('idubicacion','=',$idubicacion)->update($datoAdmin);
+        Ubicacion::where('id_ubicacion','=',$id_ubicacion)->update($datoAdmin);
 
         //$admin= administrador::findOrFail($id);
         //return view('administrador.edit',compact('admin'));
 
-        return redirect('ubicacion')->with('Mensaje','Ubicacion modificada con exito');
+        return redirect('ubicacion')->with('Mensaje','Ubicación modificada con exito');
 
     }
 
@@ -117,10 +118,10 @@ class UbicacionController extends Controller
      * @param  \App\Models\ubicacion  $ubicacion
      * @return \Illuminate\Http\Response
      */
-    public function destroy($idubicacion)
+    public function destroy($id_ubicacion)
     {
-        $admin=ubicacion::findOrFail($idubicacion);
-        ubicacion::destroy($idubicacion);  
-        return redirect('ubicacion')->with('Mensaje','Ubicacion eliminada');
+        $admin=ubicacion::findOrFail($id_ubicacion);
+        ubicacion::destroy($id_ubicacion);
+        return redirect('ubicacion')->with('Mensaje','Ubicación eliminada');
     }
 }

@@ -1,13 +1,13 @@
 <div class="form-group">
-<label class="control-label" for="nombre">Nombre</label>
-<input type="text" class="form-control {{ $errors-> has('nombres_usuario')?'is-invalid':''}}" name="nombres_usuario" id="nombre" value="{{ isset ($admin->nombres_usuario)?$admin->nombres_usuario:old('nombres_usuario') }}">
-{!! $errors->first('nombres_usuario' , '<div class="invalid-feedback">:message</div>') !!}
+	<label class="control-label" for="nombre">Nombre</label>
+	<input type="text" class="form-control {{ $errors-> has('nombres_usuario')?'is-invalid':''}}" name="nombres_usuario" id="nombre" value="{{ isset ($admin->nombres_usuario)?$admin->nombres_usuario:old('nombres_usuario') }}">
+	{!! $errors->first('nombres_usuario' , '<div class="invalid-feedback">:message</div>') !!}
 </div>
 
 <div class="form-group">
-<label class="control-label" for="apellidos">Apellidos</label>
-<input type="text" class="form-control {{ $errors-> has('apellidos_usuario')?'is-invalid':''}}" name="apellidos_usuario" id="apellidos" value="{{ isset ($admin->apellidos_usuario)?$admin->apellidos_usuario:old('apellidos_usuario') }}">
-{!! $errors->first('apellidos_usuario' , '<div class="invalid-feedback">:message</div>') !!}
+	<label class="control-label" for="apellidos">Apellidos</label>
+	<input type="text" class="form-control {{ $errors-> has('apellidos_usuario')?'is-invalid':''}}" name="apellidos_usuario" id="apellidos" value="{{ isset ($admin->apellidos_usuario)?$admin->apellidos_usuario:old('apellidos_usuario') }}">
+	{!! $errors->first('apellidos_usuario' , '<div class="invalid-feedback">:message</div>') !!}
 </div>
 
 <div class="form-group">
@@ -21,27 +21,27 @@
 </div>
 
 <div class="form-group">
-<label class="control-label" for="documento">Documento</label>
-<input type="number" class="form-control {{ $errors-> has('documento_usuario')?'is-invalid':''}}" name="documento_usuario" id="documento" value="{{ isset ($admin->documento_usuario)?$admin->documento_usuario:old('documento_usuario') }}">{!! $errors->first('documento_usuario' , '<div class="invalid-feedback">:message</div>') !!}
+	<label class="control-label" for="documento">Documento</label>
+	<input type="number" class="form-control {{ $errors-> has('documento_usuario')?'is-invalid':''}}" name="documento_usuario" id="documento" value="{{ isset ($admin->documento_usuario)?$admin->documento_usuario:old('documento_usuario') }}">{!! $errors->first('documento_usuario' , '<div class="invalid-feedback">:message</div>') !!}
 </div>
 
 <div class="form-group">
-<label class="control-label" for="correo">Correo</label>
-<input type="email" class="form-control {{ $errors-> has('correo_usuario')?'is-invalid':''}}" name="correo_usuario" id="correo" value="{{ isset ($admin->correo_usuario)?$admin->correo_usuario:old('correo_usuario') }}">
-{!! $errors->first('correo_usuario' , '<div class="invalid-feedback">:message</div>') !!}
+	<label class="control-label" for="correo">Correo</label>
+	<input type="email" class="form-control {{ $errors-> has('correo_usuario')?'is-invalid':''}}" name="correo_usuario" id="correo" value="{{ isset ($admin->correo_usuario)?$admin->correo_usuario:old('correo_usuario') }}">
+	{!! $errors->first('correo_usuario' , '<div class="invalid-feedback">:message</div>') !!}
 </div>
 
 
 <div class="form-group">
 	<label class="control-label" for="correo">Dirección</label>
 	<input type="text" class="form-control {{ $errors-> has('direccion_usuario')?'is-invalid':''}}" name="direccion_usuario" id="correo" value="{{ isset ($admin->direccion_usuario)?$admin->direccion_usuario:old('direccion_usuario') }}">
-		{!! $errors->first('direccion_usuario' , '<div class="invalid-feedback">:message</div>') !!}
+	{!! $errors->first('direccion_usuario' , '<div class="invalid-feedback">:message</div>') !!}
 </div>
 
 <div class="form-group">
 	<label class="control-label" for="telefono">Telefono</label>
 	<input type="telefono" class="form-control {{ $errors-> has('telefono_usuario')?'is-invalid':''}}" name="telefono_usuario" id="telefono" value="{{ isset ($admin->telefono_usuario)?$admin->telefono_usuario:old('telefono_usuario') }}">
-		{!! $errors->first('telefono_usuario' , '<div class="invalid-feedback">:message</div>') !!}
+	{!! $errors->first('telefono_usuario' , '<div class="invalid-feedback">:message</div>') !!}
 </div>
 
 <div class="form-group">
@@ -57,9 +57,15 @@
 
 
 <div class="form-group">
-<label class="control-label" for="password">Contraseña</label>
-<input type="password" class="form-control {{ $errors-> has('contrasena_usuario')?'is-invalid':''}}" name="contrasena_usuario" id="password" value="{{ isset ($admin->contrasena_usuario)?$admin->contrasena_usuario:old('contrasena_usuario') }}">
-{!! $errors->first('contrasena_usuario' , '<div class="invalid-feedback">:message</div>') !!}
+	<label class="control-label" for="password">Contraseña</label>
+	<input type="password" class="form-control {{ $errors-> has('contrasena_usuario')?'is-invalid':''}}" name="contrasena_usuario" id="password" value="{{ isset ($admin->contrasena_usuario)?$admin->contrasena_usuario:old('contrasena_usuario') }}">
+	{!! $errors->first('contrasena_usuario' , '<div class="invalid-feedback">:message</div>') !!}
+</div>
+
+<div class="form-group">
+	<label class="control-label" for="cpassword">Confirmar contraseña</label>
+	<input type="password" class="form-control {{ $errors-> has('contrasena_usuario_confirmation')?'is-invalid':''}}" name="contrasena_usuario_confirmation" id="cpassword" value="{{ isset ($admin->contrasena_usuario_confirmation)?$admin->contrasena_usuario_confirmation:old('contrasena_usuario_confirmation') }}">
+	{!! $errors->first('contrasena_usuario_confirmation' , '<div class="invalid-feedback">:message</div>') !!}
 </div>
 
 

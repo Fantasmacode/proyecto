@@ -38,7 +38,7 @@ class EstadoloteController extends Controller
     public function store(Request $request)
     {
         $campos = [
-            'estado' => 'required|string|max:15'
+            'estado' => 'required|string|max:20'
         ];
 
         $mensaje = ["required"=>'El :attribute es requerido'];
@@ -90,7 +90,7 @@ class EstadoloteController extends Controller
     public function update(Request $request,$idestadolote)
     {
         $campos = [
-            'estado' => 'required|string|max:15'
+            'estado' => 'required|string|max:20'
         ];
 
         $mensaje = ["required"=>'El :attribute es requerido'];

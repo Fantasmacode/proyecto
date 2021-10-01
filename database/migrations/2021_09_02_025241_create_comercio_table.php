@@ -15,8 +15,8 @@ class CreateComercioTable extends Migration
     {
         Schema::create('comercio', function (Blueprint $table) {
             $table->bigIncrements('id_comercio');
-            $table->foreignId('id_proveedores')->nullable()->references('id_proveedores')->on('proveedores')->onDelete(null);
-            $table->String('tipo_comercio',15);
+            $table->foreignId('id_proveedores')->nullable()->references('id_proveedores')->on('proveedores')->onDelete('cascade');
+            $table->String('tipo_comercio',10);
             $table->timestamp('fecha_comercio')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }

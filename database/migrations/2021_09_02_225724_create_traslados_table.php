@@ -14,11 +14,13 @@ class CreateTrasladosTable extends Migration
     public function up()
     {
         Schema::create('traslados', function (Blueprint $table) {
-            $table->bigIncrements('idtraslado');
-            $table->String('bovino',30);
-            $table->String('motivo',30);
-            $table->timestamp('fechasalida')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+            $table->bigIncrements('id_traslado');
+            $table->foreignId('id_bovino')->nullable()->references('id_bovino')->on('bovino')->onDelete('cascade');
+            $table->foreignId('id_moti')->nullable()->references('id_moti')->on('motivo')->onDelete('cascade');
+            $table->date('fechas_traslado')->nullable();
+            $table->time('horas_traslado')->nullable();
+            $table->date('fechar_traslado')->nullable();
+            $table->time('horar_traslado')->nullable();
         });
     }
 

@@ -11,20 +11,18 @@
     <thead class="thead-light">
         <tr>
             <th>Id</th>
+            <th>Lote</th>
             <th>Latitud</th>
             <th>Longitud</th>
-            
-            
         </tr>
     </thead>
     <tbody>
-        @foreach (DB::table('sectorizacions')->get() as $sectorizacion)
+        @foreach ($sectores as $sector)
         <tr>
-            <td>{{ $sectorizacion->idsectorizacion }}</td>
-            <td>{{ $sectorizacion->latitud }}</td>
-            <td>{{ $sectorizacion->longitud }}</td>
-            
-           
+            <td>{{ $sector->id_sectorizacion }}</td>
+            <td>{{ $sector->lote->nombre_lote }}</td>
+            <td>{{ $sector->latitud_sectorizacion }}</td>
+            <td>{{ $sector->longitud_sectorizacion }}</td>
         </tr>
         @endforeach
     </tbody>

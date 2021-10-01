@@ -1,111 +1,91 @@
-	<form>
-	<div class="form-group">
-	<label for="exampleFormControlSelect1"for="raza">{{'Raza'}}</label>
-	<select class="form-control {{ $errors-> has('raza')?'is-invalid':''}}" name="raza" id="raza" value="{{ isset ($admin->raza)?$admin->raza:old('raza') }}" aria-label="Default select example">
-		
-	<option selected>Seleccione raza</option>
-	@foreach (DB::table('razas')->Get() as $raza)
-	<option value="{{$raza->idraza}}">{{$raza->nombreraza}}</option>
-     @endforeach
-    </select>
-    
-    {!! $errors->first('raza' , '<div class="invalid-feedback">:message</div>') !!}
-	</div>
 
+<div class="form-group">
+	<label for="comercio">Comercio</label>
+	<select class="form-control {{ $errors-> has('id_comercio')?'is-invalid':''}}" name="id_comercio" id="comercio" value="{{ isset ($admin->id_comercio)?$admin->id_comercio:old('id_comercio') }}" aria-label="Default select example">
+		<option value="" selected>Seleccione comercio</option>
+		@foreach ($comercios as $comercio)
+		<option value="{{$comercio->id_comercio}}" {{ old('id_comercio') == $comercio->id_comercio ? 'selected' : '' }}>{{$comercio->tipo_comercio}}</option>
+		@endforeach
+	</select>
 
-	<div class="form-group">
-	<label class="control-label" for="nombre">{{'Peso'}}</label>
-	<input type="number" class="form-control {{ $errors-> has('peso')?'is-invalid':''	}}" name="peso" id="peso" value="{{ isset ($admin->peso)?$admin->peso:	old('peso') }}">
-	{!! $errors->first('peso' , '<div class="invalid-feedback">:message</div>') !!}
-	</div>
+	{!! $errors->first('id_comercio' , '<div class="invalid-feedback">:message</div>') !!}
+</div>
 
+<div class="form-group">
+	<label for="raza">Raza</label>
+	<select class="form-control {{ $errors-> has('id_raz')?'is-invalid':''}}" name="id_raz" id="raza" value="{{ isset ($admin->id_raz)?$admin->id_raz:old('id_raz') }}" aria-label="Default select example">
+		<option value="" selected>Seleccione raza</option>
+		@foreach ($razas as $raza)
+		<option value="{{$raza->id_raz}}" {{ old('id_raz') == $raza->id_raz ? 'selected' : '' }}>{{$raza->nombre_raz}}</option>
+		@endforeach
+	</select>
 
-	<div class="form-group">
-	<label class="control-label" for="nombre">{{'Edad'}}</label>
-	<input type="number" class="form-control {{ $errors-> has('edad')?'is-invalid':''	}}" name="edad" id="edad" value="{{ isset ($admin->edad)?$admin->edad:	old('edad') }}">
-	{!! $errors->first('edad' , '<div class="invalid-feedback">:message</div>') !!}
-	</div>
+	{!! $errors->first('id_raz' , '<div class="invalid-feedback">:message</div>') !!}
+</div>
 
-	<form>
-	<div class="form-group">
-	<label for="exampleFormControlSelect1"for="finalidad">{{'Finalidad'}}</label>
-	<select class="form-control {{ $errors-> has('finalidad')?'is-invalid':''}}" name="finalidad" id="finalidad" value="{{ isset ($admin->finalidad)?$admin->finalidad:old('finalidad') }}" aria-label="Default select example">
-	<option selected>Seleccione Finalidad</option>
-	<option value="Carne">Carne</option>
-    <option value="Leche">Leche</option>
-    <option value="Doble Propósito">Doble Propósito</option>
-		    </select>
-    {!! $errors->first('finalidad' , '<div class="invalid-feedback">:message</div>') !!}
-	</div>
+<div class="form-group">
+	<label class="control-label" for="peso">Peso</label>
+	<input type="number" step="any" class="form-control {{ $errors-> has('peso_bovino')?'is-invalid':''	}}" name="peso_bovino" id="peso" value="{{ isset ($admin->peso_bovino)?$admin->peso_bovino:	old('peso_bovino') }}">
+	{!! $errors->first('peso_bovino' , '<div class="invalid-feedback">:message</div>') !!}
+</div>
 
-	<form>
-	<div class="form-group">
-	<label for="exampleFormControlSelect1"for="estado">{{'Estado'}}</label>
-	<select class="form-control {{ $errors-> has('estado')?'is-invalid':''}}" name="estado" id="estado" value="{{ isset ($admin->estado)?$admin->estado:old('estado') }}" aria-label="Default select example">
-	<option selected>Seleccione Estado</option>
-	<option value="Activo">Activo</option>
-    <option value="Inactivo">Inactivo</option>
-		    </select>
-    {!! $errors->first('estado' , '<div class="invalid-feedback">:message</div>') !!}
-	</div>
+<div class="form-group">
+	<label class="control-label" for="edad">Edad</label>
+	<input type="number" class="form-control {{ $errors-> has('edad_bovino')?'is-invalid':''	}}" name="edad_bovino" id="edad" value="{{ isset ($admin->edad_bovino)?$admin->edad_bovino:	old('edad_bovino') }}">
+	{!! $errors->first('edad_bovino' , '<div class="invalid-feedback">:message</div>') !!}
+</div>
 
-	
+<div class="form-group">
+	<label for="finalidad">Finalidad</label>
+	<select class="form-control {{ $errors-> has('finalidad_bovino')?'is-invalid':''}}" name="finalidad_bovino" id="finalidad" aria-label="Default select example">
+		<option value="" selected>Seleccione Finalidad</option>
+		<option value="Carne" {{ old('finalidad_bovino') == "Carne" ? 'selected' : '' }}>Carne</option>
+		<option value="Leche" {{ old('finalidad_bovino') == "Leche" ? 'selected' : '' }}>Leche</option>
+		<option value="Doble Propósito" {{ old('finalidad_bovino') == "Doble Propósito" ? 'selected' : '' }}>Doble Propósito</option>
+	</select>
+	{!! $errors->first('finalidad_bovino' , '<div class="invalid-feedback">:message</div>') !!}
+</div>
 
-	
-	<form>
-	<div class="form-group">
-	<label for="exampleFormControlSelect1"for="lote">{{'Lote'}}</label>
-	<select class="form-control {{ $errors-> has('lote')?'is-invalid':''}}" name="lote" id="lote" value="{{ isset ($admin->lote)?$admin->lote:old('lote') }}" aria-label="Default select example">
-		
-	<option selected>Seleccione lote</option>
-		@foreach (DB::table('lotes')->select('nombrelote')->Get() as $lote)
+<div class="form-group">
+	<label for="estado">Estado</label>
+	<select class="form-control {{ $errors-> has('id_estadob')?'is-invalid':''}}" name="id_estadob" id="estado" aria-label="Default select example">
+		<option value="" selected>Seleccione estado</option>
+		@foreach ($estados as $estado)
+		<option value="{{$estado->id_estadob}}" {{ old('id_estadob') == $estado->id_estadob ? 'selected' : '' }}>{{$estado->nombre_estadob}}</option>
+		@endforeach
+	</select>
+	{!! $errors->first('id_estadob' , '<div class="invalid-feedback">:message</div>') !!}
+</div>
 
-	<option value="{{$lote->nombrelote}}">{{$lote->nombrelote}}</option>
-     @endforeach
-    </select>
-    
-    {!! $errors->first('lote' , '<div class="invalid-feedback">:message</div>') !!}
-	</div>
+<div class="form-group">
+	<label for="lote">Lote</label>
+	<select class="form-control {{ $errors-> has('id_lote')?'is-invalid':''}}" name="id_lote" id="lote" value="{{ isset ($admin->id_lote)?$admin->id_lote:old('id_lote') }}" aria-label="Default select example">
+		<option value="" selected>Seleccione lote</option>
+		@foreach ($lotes as $lote)
+		<option value="{{$lote->id_lote}}" {{ old('id_lote') == $lote->id_lote ? 'selected' : '' }}>{{$lote->nombre_lote}}</option>
+		@endforeach
+	</select>
 
-	<form>
-	<div class="form-group">
-		@foreach(DB::table('users')->select('nombre')->where('nombre', '=', Auth::user()->nombre)->get() as $user)
-	<label class="control-label" for="nombre">{{''}}</label>
-	<input type="hidden" class="form-control {{ $errors-> has('usuario')?'is-invalid':''	}}" name="usuario" id="usuario" value="{{$user->nombre}}" placeholder="{{$user->nombre}}" readonly>
-	{!! $errors->first('usuario' , '<div class="invalid-feedback">:message</div>') !!}
-	@endforeach
-	</div>
-
-
-	
-
-	
-
-	
-
-
-	
-
-
-	
+	{!! $errors->first('id_lote' , '<div class="invalid-feedback">:message</div>') !!}
+</div>
 
 
 
 
 
-	<!--<div class="form-group">
-	<label class="control-label" for="nombre">{{'Contraseña'}}</label>
-	<input type="text" class="form-control {{ $errors-> has('nom_res')?'is-invalid':''	}}" name="nom_res" id="nom_res" value="{{ isset ($updateimage->nom_res)?$updateimage->nom_res:	old('nom_res') }}">
-	{!! $errors->first('nom_res' , '<div class="invalid-feedback">:message</div>') !!}
-	</div>
 
-	<div class="form-group">
-	<label class="control-label" for="nombre">{{'Confirmar contraseña'}}</label>
-	<input type="text" class="form-control {{ $errors-> has('nom_res')?'is-invalid':''	}}" name="nom_res" id="nom_res" value="{{ isset ($updateimage->nom_res)?$updateimage->nom_res:	old('nom_res') }}">
-	{!! $errors->first('nom_res' , '<div class="invalid-feedback">:message</div>') !!}
-	</div>-->
+
+
+
+
+
+
+
+
+
+
+
 <button type="submit" class="btn btn-success"><i class="fas fa-save"></i></button>
 
 <a class="btn btn-secondary" href="{{ url('bovino/') }}"><i class="fas fa-arrow-alt-circle-left"></i></a>
 
-	

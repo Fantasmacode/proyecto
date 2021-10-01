@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class TipoRol extends Migration
+class CreateEstadoloteTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class TipoRol extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_rol', function (Blueprint $table) {
-            $table->bigIncrements('id', 4);
-            $table->string('nom_rol', 20);
-        });//
+        Schema::create('estado_lote', function (Blueprint $table) {
+            $table->bigIncrements('id_estadol');
+            $table->String('nombre_estadol',20);
+        });
     }
 
     /**
@@ -26,6 +26,6 @@ class TipoRol extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_rol');//
+        Schema::dropIfExists('estado_lote');
     }
 }

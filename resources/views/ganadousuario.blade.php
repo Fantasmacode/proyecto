@@ -24,22 +24,26 @@
             <th>Estado</th>
             <th>Fecha de ingreso</th>
             <th>Lote</th>
-            
         </tr>
     </thead>
     <tbody>
-       @foreach (DB::table('bovinos')->get() as $bovino)
+       @foreach ($bovinos as $bovino)
         <tr>
-            <td>{{ $bovino->idbovino }}</td>
-            <td>{{ $bovino->peso }}</td>
-            <td>{{ $bovino->edad }}</td>
-            <td>{{ $bovino->raza }}</td>
-            <td>{{ $bovino->finalidad }}</td>
-            <td>{{ $bovino->usuario }}</td>
-            <td>{{ $bovino->estado }}</td>
-            <th>{{ $bovino->fechaingreso }}</th>
-            <th>{{ $bovino->lote }}</th>
-            
+            <td>{{ $bovino->id_bovino }}</td>
+            <td>{{ $bovino->peso_bovino }}</td>
+            <td>{{ $bovino->edad_bovino }}</td>
+            <td>{{ $bovino->raza->nombre_raz }}</td>
+            <td>{{ $bovino->finalidad_bovino }}</td>
+            <td>{{ $bovino->usuario->nombres_usuario }} {{ $bovino->usuario->apellidos_usuario }}</td>
+            <td>
+                @if ($bovino->estado->nombre_estadob == 'Activo')
+                    <span class="badge bg-success">{{ $bovino->estado->nombre_estadob }}</span>
+                @else
+                    <span class="badge bg-danger">{{ $bovino->estado->nombre_estadob }}</span>
+                @endif
+            </td>
+            <th>{{ $bovino->fecha_bovino }}</th>
+            <th>{{ $bovino->lote->nombre_lote }}</th>
         </tr>
         @endforeach
     </tbody>

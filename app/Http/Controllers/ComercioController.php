@@ -13,11 +13,24 @@ class ComercioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $datos['comercio']=Comercio::with('proveedor')->paginate(5);
+        $comercio = Comercio::with('proveedor')->withCount('bovinos')
+            ->where( function($query) use($request){
+                if ($request->ftipo_comercio) {
+                    return $query->where('tipo_comercio',$request->ftipo_comercio);
+                } else {
+                    return $query;
+                }
+            })
+            ->paginate(5);
 
-        return view('comercio.index',$datos);
+        $total = $comercio->sum('bovinos_count');
+
+        $selected_id = [];
+        $selected_id['ftipo_comercio'] = $request->ftipo_comercio;
+
+        return view('comercio.index', compact('comercio', 'selected_id', 'total'));
     }
 
     /**
@@ -40,9 +53,8 @@ class ComercioController extends Controller
     public function store(Request $request)
     {
         $campos = [
-            'tipo_comercio' => 'required|string|max:15',
-            'id_proveedores' => 'required|string|max:20'
-
+            'tipo_comercio' => 'required|string|max:10',
+            'id_proveedores' => 'required'
         ];
 
         $mensaje = ["required"=>'El campo :attribute es requerido'];
@@ -66,9 +78,11 @@ class ComercioController extends Controller
      * @param  \App\Models\comercio  $comercio
      * @return \Illuminate\Http\Response
      */
-    public function show(comercio $idcomercio)
+    public function show($id_comercio)
     {
-        //
+        $admin = Comercio::with('proveedor', 'bovinos')->findOrFail($id_comercio);
+
+        return view('comercio.show',compact('admin'));
     }
 
     /**
@@ -95,8 +109,8 @@ class ComercioController extends Controller
     public function update(Request $request,$id_comercio)
     {
         $campos = [
-            'tipo_comercio' => 'required|string|max:15',
-            'id_proveedores' => 'required|string|max:20'
+            'tipo_comercio' => 'required|string|max:10',
+            'id_proveedores' => 'required'
         ];
 
         $mensaje = ["required"=>'El campo :attribute es requerido'];
@@ -121,10 +135,10 @@ class ComercioController extends Controller
      * @param  \App\Models\comercio  $comercio
      * @return \Illuminate\Http\Response
      */
-    public function destroy($idcomercio)
+    public function destroy($id_comercio)
     {
-        $admin=comercio::findOrFail($idcomercio);
-        comercio::destroy($idcomercio);  
+        $admin=comercio::findOrFail($id_comercio);
+        comercio::destroy($id_comercio);
         return redirect('comercio')->with('Mensaje','Comercio eliminado');
     }
 }

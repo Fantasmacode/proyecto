@@ -18,17 +18,14 @@
             <th>Id</th>
             <th>Raza</th>
             <th>Estado</th>
-            
-            
         </tr>       
     </thead>
     <tbody>
-       @foreach (DB::table('bovinos')->get() as $bovino)
+       @foreach (DB::table('bovino')->get() as $bovino)
         <tr>
-            <td>{{ $bovino->idbovino }}</td>
-            <td>{{ $bovino->raza }}</td>
-            <td>{{ $bovino->estado }}</td>
-                     
+            <td>{{ $bovino->id_bovino }}</td>
+            <td>{{ $bovino->id_raz }}</td>
+            <td>{{ $bovino->id_estadob }}</td>
         </tr>
         @endforeach
     </tbody>
