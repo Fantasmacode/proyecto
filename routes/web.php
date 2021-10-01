@@ -10,6 +10,7 @@ use App\Models\lote;
 use App\Models\proveedor;
 use App\Models\sectorizacion;
 use App\Models\traslado;
+use App\Models\ubicacion;
 use App\Models\usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -141,24 +142,45 @@ Route::get('ganadousuario', function () {
 })->name('ganadousuario');
 
 Route::get('ubicacion', function (Request $request) {
-    $sectores = sectorizacion::with('lote')->get();
+    $ubicaciones = ubicacion::with('bovino.raza')->get();
 
     $coordenadas = [];
 
-    foreach($sectores as $sector)
+    foreach($ubicaciones as $ubicacion)
     {
-        array_push($coordenadas, array($sector->lote->nombre_lote, $sector->latitud_sectorizacion, $sector->longitud_sectorizacion, $sector->id_sectorizacion));
+        array_push($coordenadas, array($ubicacion->bovino->raza->nombre_raz, $ubicacion->latitud_ubicacion, $ubicacion->longitud_ubicacion, $ubicacion->bovino->id_bovino));
     }
     $alertas = alerta::with('bovino.raza', 'bovino.lote', 'bovino.ubicacion')->get();
-    return view('ubicacion', compact('coordenadas', 'alertas'));
+    $total = $alertas->count();
+    return view('ubicacion', compact('coordenadas', 'alertas', 'total'));
 })->name('ubicacion');
 
 Route::get('homeubicacion', function () {
-    return view('homeubicacion');
+    $ubicaciones = ubicacion::with('bovino.raza')->get();
+
+    $coordenadas = [];
+
+    foreach($ubicaciones as $ubicacion)
+    {
+        array_push($coordenadas, array($ubicacion->bovino->raza->nombre_raz, $ubicacion->latitud_ubicacion, $ubicacion->longitud_ubicacion, $ubicacion->bovino->id_bovino));
+    }
+    $alertas = alerta::with('bovino.raza', 'bovino.lote', 'bovino.ubicacion')->get();
+    $total = $alertas->count();
+    return view('homeubicacion', compact('coordenadas', 'alertas', 'total'));
 })->name('homeubicacion');
 
 Route::get('userubicacion', function () {
-    return view('userubicacion');
+    $ubicaciones = ubicacion::with('bovino.raza')->get();
+
+    $coordenadas = [];
+
+    foreach($ubicaciones as $ubicacion)
+    {
+        array_push($coordenadas, array($ubicacion->bovino->raza->nombre_raz, $ubicacion->latitud_ubicacion, $ubicacion->longitud_ubicacion, $ubicacion->bovino->id_bovino));
+    }
+    $alertas = alerta::with('bovino.raza', 'bovino.lote', 'bovino.ubicacion')->get();
+    $total = $alertas->count();
+    return view('userubicacion', compact('coordenadas', 'alertas', 'total'));
 })->name('userubicacion');
 
 
@@ -185,6 +207,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/user', [App\Http\Controllers\HomeController::class, 'getUser']);
 Route::get('/capataz', [App\Http\Controllers\HomeController::class, 'getCapataz']);
+Route::get('ubicaciones/coordenadas', [App\Http\Controllers\UbicacionController::class, 'getUbicaciones'])->name('ubicaciones.coordenadas');
 
 Route::get('user/password', 'App\Http\Controllers\UserController@password');
 Route::post('user/updatepassword', 'App\Http\Controllers\UserController@updatePassword');

@@ -13,27 +13,40 @@
 		<div id="map" class="vh-70"></div>
 	</div>
 	<div class="form-group">
+		<div class="btn btn-danger">
+			Alertas <span class="badge bg-secondary">{{ $total }}</span>
+		</div>
 		@foreach ($alertas as $alerta)
 			<div class="alert alert-danger" role="alert">
-				{{ $alerta->mensaje_alerta }} <br>
-				{{ $alerta->fecha_alerta }} <br>
-				{{ $alerta->hora_alerta }} <br>
-				{{ $alerta->bovino->id_bovino }} <br>
-				{{ $alerta->bovino->lote->nombre_lote }} <br>
-				<label for="">Latitud</label> <br>
-				<span>{{ $alerta->bovino->ubicacion->latitud_ubicacion }}</span> <br>
-				<label for="">Longitud</label> <br>
-				<span>{{ $alerta->bovino->ubicacion->longitud_ubicacion }}</span> <br>
+				<div class="row">
+					<div class="col-md-6">
+						<strong>Mensaje:</strong> {{ $alerta->mensaje_alerta }}
+					</div>
+					<div class="col-md-6">
+						<strong>Fecha y Hora:</strong> {{ $alerta->fecha_alerta }} - {{ $alerta->hora_alerta }}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<strong>Bovino:</strong> {{ $alerta->bovino->id_bovino }} <br>
+						<strong>Raza:</strong> {{ $alerta->bovino->lote->nombre_lote }}
+					</div>
+					<div class="col-md-6">
+						<strong>Coordenadas:</strong> <br>
+						<strong>Latitud:</strong> {{ $alerta->bovino->ubicacion->latitud_ubicacion }}
+						<strong>Longitud:</strong> {{ $alerta->bovino->ubicacion->longitud_ubicacion }}
+					</div>
+				</div>
 			</div>
 		@endforeach
 	</div>
 	<link rel="stylesheet" href="{{asset('css/map.css')}}">
+    <script src="{{ asset('dash/vendor/jquery/jquery.min.js') }}"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABQkMieduqqbNZOPR6InyyARBrXselMMs"></script>
 	<script>
-		var coordenadas = {!! json_encode($coordenadas, JSON_PRETTY_PRINT) !!};
-		console.log(coordenadas)
-		function iniciarMap() {
-			var myLatLng = { lat: 1.631147 ,lng: -78.731129 };
+		let markers = [];
+		function iniciarMap(coordenadas) {
+			var myLatLng = { lat: coordenadas[0][1] ,lng: coordenadas[0][2] };
 
 			var locations = coordenadas;
 
@@ -54,15 +67,49 @@
 					animation: google.maps.Animation.DROP,
 				});
 
+				markers.push(marker);
+
 				google.maps.event.addListener(marker, 'click', (function(marker, i) {
 					return function() {
-						infowindow.setContent("<span class='text-lg'>"+locations[i][3]+"</span>");
+						infowindow.setContent("<span class='text-lg'><strong>Bovino: </strong>"+locations[i][3]+" <strong>Raza: "+locations[i][0]+"</strong></span>");
 						infowindow.open(map, marker);
 					}
 				})(marker, i));
 			}
 		}
-		iniciarMap()
+
+		function setMapOnAll(map) {
+			for (let i = 0; i < markers.length; i++) {
+				markers[i].setMap(map);
+			}
+		}
+
+		function hideMarkers() {
+			setMapOnAll(null);
+		}
+
+		function deleteMarkers() {
+			hideMarkers();
+			markers = [];
+		}
+
+		function ubicaciones(){
+			$.ajax({
+	            url: 'ubicaciones/coordenadas',
+	            type: "GET",
+	            success: function(data){
+	               	deleteMarkers()
+					iniciarMap(data.coordenadas)
+	            },
+	            error: function (e){
+	                setTimeout(function(){
+	                    alert("error");
+	                }, 500);
+	            },
+	        });
+		}
+		ubicaciones()
+		setInterval(ubicaciones, 30000);
 	</script>
 </body>
 </html>

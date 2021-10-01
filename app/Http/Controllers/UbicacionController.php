@@ -19,6 +19,19 @@ class UbicacionController extends Controller
         return view('ubicacion.index',$datos);
     }
 
+    public function getUbicaciones(Request $request)
+    {
+        $ubicaciones = ubicacion::with('bovino.raza')->get();
+
+        $coordenadas = [];
+
+        foreach($ubicaciones as $ubicacion)
+        {
+            array_push($coordenadas, array($ubicacion->bovino->raza->nombre_raz, $ubicacion->latitud_ubicacion, $ubicacion->longitud_ubicacion, $ubicacion->bovino->id_bovino));
+        }
+        return response()->json(["coordenadas" => $coordenadas]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

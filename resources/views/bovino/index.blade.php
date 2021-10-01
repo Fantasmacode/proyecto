@@ -17,6 +17,7 @@
 	<br>
 	<br>
 
+	<h5><strong>Lista de Bovinos</strong></h5>
 	<table class="table table-dark">
 		<thead class="thead-light">
 			<tr>
