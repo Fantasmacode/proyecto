@@ -41,11 +41,17 @@
 		@endforeach
 	</div>
 	<link rel="stylesheet" href="{{asset('css/map.css')}}">
+    <script src="{{ asset('dash/vendor/jquery/jquery.min.js') }}"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABQkMieduqqbNZOPR6InyyARBrXselMMs"></script>
 	<script>
-		var coordenadas = {!! json_encode($coordenadas, JSON_PRETTY_PRINT) !!};
-		function iniciarMap() {
-			var myLatLng = { lat: 1.631147 ,lng: -78.731129 };
+		let markers = [];
+		function iniciarMap(coordenadas) {
+			var myLatLng;
+			if (coordenadas.length > 0) {
+				myLatLng = { lat: coordenadas[0][1] ,lng: coordenadas[0][2] };
+			} else {
+				myLatLng = { lat: 1.631147 ,lng: -78.731129 };
+			}
 
 			var locations = coordenadas;
 
@@ -66,6 +72,8 @@
 					animation: google.maps.Animation.DROP,
 				});
 
+				markers.push(marker);
+
 				google.maps.event.addListener(marker, 'click', (function(marker, i) {
 					return function() {
 						infowindow.setContent("<span class='text-lg'><strong>Bovino: </strong>"+locations[i][3]+" <strong>Raza: "+locations[i][0]+"</strong></span>");
@@ -74,7 +82,39 @@
 				})(marker, i));
 			}
 		}
-		iniciarMap()
+
+		function setMapOnAll(map) {
+			for (let i = 0; i < markers.length; i++) {
+				markers[i].setMap(map);
+			}
+		}
+
+		function hideMarkers() {
+			setMapOnAll(null);
+		}
+
+		function deleteMarkers() {
+			hideMarkers();
+			markers = [];
+		}
+
+		function ubicaciones(){
+			$.ajax({
+	            url: 'ubicaciones/coordenadas',
+	            type: "GET",
+	            success: function(data){
+	               	deleteMarkers()
+					iniciarMap(data.coordenadas)
+	            },
+	            error: function (e){
+	                setTimeout(function(){
+	                    alert("error");
+	                }, 500);
+	            },
+	        });
+		}
+		ubicaciones()
+		setInterval(ubicaciones, 30000);
 	</script>
 </body>
 </html>
