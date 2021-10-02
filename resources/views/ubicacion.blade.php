@@ -46,7 +46,12 @@
 	<script>
 		let markers = [];
 		function iniciarMap(coordenadas) {
-			var myLatLng = { lat: coordenadas[0][1] ,lng: coordenadas[0][2] };
+			var myLatLng;
+			if (coordenadas.length > 0) {
+				myLatLng = { lat: coordenadas[0][1] ,lng: coordenadas[0][2] };
+			} else {
+				myLatLng = { lat: 1.631147 ,lng: -78.731129 };
+			}
 
 			var locations = coordenadas;
 
