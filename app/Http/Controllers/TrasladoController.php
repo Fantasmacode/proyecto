@@ -17,7 +17,7 @@ class TrasladoController extends Controller
      */
     public function index()
     {
-        $datos['traslados']=Traslado::with('bovino.raza', 'motivo')->whereNotNull('fechas_traslado')->whereNotNull('horas_traslado')->paginate(10);
+        $datos['traslados']=Traslado::with('bovino.raza', 'motivo')->paginate(10);
 
         return view('traslado.index',$datos);
     }
@@ -29,7 +29,10 @@ class TrasladoController extends Controller
      */
     public function create()
     {
-        $bovinos = bovino::whereDoesntHave('baja')->get();
+        $bovinos = bovino::whereDoesntHave('baja')->whereDoesntHave('traslados')->orWhereHas('traslados', function($query){
+            $query->whereNotNull('fechar_traslado')->whereNotNull('horar_traslado');
+        })->get();
+        //return dd($bovinos);
         $motivos = motivo::all();
         return view('traslado.create', compact('bovinos', 'motivos'));
     }
@@ -86,7 +89,9 @@ class TrasladoController extends Controller
     public function edit($id_traslado)
     {
         $admin= Traslado::findOrFail($id_traslado);
-        $bovinos = bovino::whereDoesntHave('baja')->get();
+        $bovinos = bovino::whereDoesntHave('baja')->whereDoesntHave('traslados')->orWhereHas('traslados', function($query){
+            $query->whereNull('fechar_traslado')->whereNull('horar_traslado');
+        })->get();
         $motivos = motivo::all();
 
         return view('traslado.edit',compact('admin', 'bovinos', 'motivos'));

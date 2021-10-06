@@ -16,12 +16,15 @@
 	<br>
 	<br>
 
+	<h5><strong>Lista de Bajas</strong></h5>
+
 	<table class="table table-dark">
 		<thead class="thead-light">
 			<tr>
 				<th>Id</th>
 				<th>Bovino</th>
 				<th>Raza</th>
+				<th>Estado</th>
 				<th>Motivo</th>
 				<th>Fecha de Muerte</th>
 				<th>Acciones</th>
@@ -33,6 +36,9 @@
 				<td>{{ $res->id_baja }}</td>
 				<td>{{ $res->bovino->id_bovino }}</td>
 				<td>{{ $res->bovino->raza->nombre_raz}}</td>
+				<td>
+					<span class="badge bg-danger">Muerto</span>
+				</td>
 				<td>{{ $res->motivo_baja }}</td>
 				<th>{{ $res->fecha_baja }}</th>
 				<td>

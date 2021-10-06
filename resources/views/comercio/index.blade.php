@@ -17,7 +17,7 @@
 	<br>
 	<br>
 
-	<h5><strong>Lista de Bovinos</strong></h5>
+	<h5><strong>Lista de Comercios</strong></h5>
 
 	<form action="{{ url('comercio') }}" method="GET" class="mb-4">
 		<div class="row">

@@ -12,6 +12,7 @@
 <br>
 <br>
 
+<h5><strong>Lista de Lotes</strong></h5>
 
 <form action="{{ url('mostrarestadolote') }}" method="GET" class="mb-4">
     <div class="row">

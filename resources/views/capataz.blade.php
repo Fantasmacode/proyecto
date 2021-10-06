@@ -34,7 +34,7 @@
         <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html"style="background-color:#008080;">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('administrador') }}" style="background-color:#008080;">
                 <div class="fa fa-fw fa-home">
                 </div>
                 <div class="sidebar-brand-text mx-3">Menú capataz<sup></sup></div>
@@ -59,7 +59,6 @@
                     <div class="bg-#008080 py-2 collapse-inner rounded">
                 
                         <a class="collapse-item" href="{{ url('bovino') }}" >Bovinos</a>
-                        <a class="collapse-item" href="{{ url('raza') }}" >Raza</a>
                         <!-- <a class="collapse-item" href="{{ url('mostrarestado') }}">Estado</a> -->
                         <a class="collapse-item" href="{{ url('comercio') }}">Comercio</a>
                         <a class="collapse-item" href="{{ url('baja') }}">Muertes</a>
@@ -77,16 +76,14 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLote"
                     aria-expanded="true" aria-controls="collapseLote">
                     <i class="fas fa-map-marker-alt"></i>
-                    <span>Lote</span>
+                    <span>Parametrización</span>
                 </a>
                 <div id="collapseLote" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-#008080 py-2 collapse-inner rounded">
-                
+                        <a class="collapse-item" href="{{ url('raza') }}" >Raza</a>
                         <a class="collapse-item" href="{{ url('lote') }}" >Agregar Lote</a>
                         <a class="collapse-item" href="{{ url('mostrarestadolote') }}">Filtro de Lotes</a>
                         <a class="collapse-item" href="{{ url('sectorizacion') }}">Sectorización</a>
-
-
                     </div>
                 </div>
             </li>

@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Models\alerta;
 use App\Models\baja;
 use App\Models\estadobovino;
-use App\Models\traslados;
+use App\Models\traslado;
 use App\Models\ubicacion;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -60,7 +60,7 @@ class bovino extends Model
 
 	public function traslados()
 	{
-		return $this->hasMany(traslados::class, 'id_bovino');
+		return $this->hasMany(traslado::class, 'id_bovino');
 	}
 
 	public function alertas()

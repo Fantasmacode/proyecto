@@ -63,5 +63,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'soloadmin' => \App\Http\Middleware\SoloAdmin::class,
+        'sologerente' => \App\Http\Middleware\SoloGerente::class,
+        'solocapataz' => \App\Http\Middleware\SoloCapataz::class,
     ];
 }

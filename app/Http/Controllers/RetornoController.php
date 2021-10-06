@@ -30,7 +30,9 @@ class RetornoController extends Controller
      */
     public function create()
     {
-        $bovinos = bovino::whereDoesntHave('baja')->get();
+        $bovinos = bovino::whereDoesntHave('baja')->whereHas('traslados', function($query){
+            $query->whereNull('fechar_traslado')->whereNull('horar_traslado');
+        })->get();
         $motivos = motivo::all();
         return view('retorno.create', compact('bovinos', 'motivos'));
     }
@@ -53,11 +55,13 @@ class RetornoController extends Controller
         $this->validate($request,$campos,$mensaje);
 
         //$datoAdmin=request()->all();
-        $request->request->add(['fechar_traslado' => Carbon::now()->format('Y-m-d')]);
-        $request->request->add(['horar_traslado' => Carbon::now()->format('H:i:s')]);
 
         $datoAdmin=request()->except('_token');
-        Traslado::insert($datoAdmin);
+        $traslado = traslado::where('id_bovino', $request->id_bovino)->whereNull('fechar_traslado')->whereNull('horar_traslado');
+        $traslado->update([
+            'fechar_traslado' => Carbon::now()->format('Y-m-d'),
+            'horar_traslado' => Carbon::now()->format('H:i:s'),
+        ]);
 
         $bovino = bovino::findOrFail($request->id_bovino);
         $bovino->update(['id_estadob' => 1]);
@@ -88,7 +92,7 @@ class RetornoController extends Controller
     public function edit($id_traslado)
     {
         $admin= Traslado::findOrFail($id_traslado);
-        $bovinos = bovino::whereDoesntHave('baja')->get();
+        $bovinos = bovino::whereDoesntHave('baja')->whereHas('traslados')->get();
         $motivos = motivo::all();
 
 
@@ -139,7 +143,10 @@ class RetornoController extends Controller
     public function destroy($id_traslado)
     {
         $admin=traslado::findOrFail($id_traslado);
-        traslado::destroy($id_traslado);
+        $admin->update([
+            'fechar_traslado' => null,
+            'horar_traslado' => null,
+        ]);
         return redirect('retorno')->with('Mensaje','Traslado eliminado');
     }
 }

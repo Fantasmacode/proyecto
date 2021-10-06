@@ -18,11 +18,56 @@ class BovinoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $datos['bovinos']=Bovino::whereDoesntHave('baja')->with('estado', 'raza', 'lote', 'comercio', 'usuario')->paginate(10);
+        $bovinos = Bovino::whereDoesntHave('baja')->with('estado', 'raza', 'lote', 'comercio', 'usuario')
+            ->where( function($query) use($request){
+                if ($request->fid_raz) {
+                    return $query->where('id_raz',$request->fid_raz);
+                } else {
+                    return $query;
+                }
+            })
+            ->where( function($query) use($request){
+                if ($request->ffinalidad) {
+                    return $query->where('finalidad_bovino',$request->ffinalidad);
+                } else {
+                    return $query;
+                }
+            })
+            ->where( function($query) use($request){
+                if ($request->festado) {
+                    return $query->where('id_estadob',$request->festado);
+                } else {
+                    return $query;
+                }
+            })
+            ->where( function($query) use($request){
+                if ($request->fid_bovino) {
+                    return $query->where('id_bovino',$request->fid_bovino);
+                } else {
+                    return $query;
+                }
+            })
+            ->where( function($query) use($request){
+                if ($request->fid_lote) {
+                    return $query->where('id_lote',$request->fid_lote);
+                } else {
+                    return $query;
+                }
+            })
+            ->paginate(10);
+        $selected_id = [];
+        $selected_id['fid_raz'] = $request->fid_raz;
+        $selected_id['ffinalidad'] = $request->ffinalidad;
+        $selected_id['festado'] = $request->festado;
+        $selected_id['fid_bovino'] = $request->fid_bovino;
+        $selected_id['fid_lote'] = $request->fid_lote;
 
-        return view('bovino.index',$datos);  //
+        $razas = raza::all();
+        $lotes = lote::all();
+
+        return view('bovino.index', compact('bovinos', 'razas', 'lotes', 'selected_id'));  //
     }
 
     /**
@@ -48,6 +93,7 @@ class BovinoController extends Controller
     public function store(Request $request)
     {
         $request->request->add(['id_usuario' => Auth::user()->id_usuario]);
+        $request->request->add(['id_comercio' => comercio::where('tipo_comercio', 'Compra')->first()->id_comercio]);
         $campos = [
             'id_raz' => 'required',
             'peso_bovino' => 'required|numeric|between:1,1100',
@@ -55,7 +101,7 @@ class BovinoController extends Controller
             'finalidad_bovino' => 'required|string|max:15',
             'id_estadob' => 'required',
             'id_lote' => 'required',
-            'id_comercio' => 'required',
+            //'id_comercio' => 'required',
             'id_usuario' => 'required',
         ];
 
@@ -118,7 +164,7 @@ class BovinoController extends Controller
             'finalidad_bovino' => 'required|string|max:15',
             'id_estadob' => 'required',
             'id_lote' => 'required',
-            'id_comercio' => 'required',
+            //'id_comercio' => 'required',
         ];
 
         $mensaje = ["required"=>'El campo :attribute es requerido'];

@@ -1,4 +1,4 @@
-
+<!--
 <div class="form-group">
 	<label for="comercio">Comercio</label>
 	<select class="form-control {{ $errors-> has('id_comercio')?'is-invalid':''}}" name="id_comercio" id="comercio" value="{{ isset ($admin->id_comercio)?$admin->id_comercio:old('id_comercio') }}" aria-label="Default select example">
@@ -10,6 +10,7 @@
 
 	{!! $errors->first('id_comercio' , '<div class="invalid-feedback">:message</div>') !!}
 </div>
+-->
 
 <div class="form-group">
 	<label for="raza">Raza</label>

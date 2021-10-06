@@ -34,7 +34,7 @@
         <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html"style="background-color:#252850;">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('administrador') }}" style="background-color:#252850;">
                 <div class="fa fa-fw fa-home">
                 </div>
                 <div class="sidebar-brand-text mx-3">Menú administrador<sup></sup></div>

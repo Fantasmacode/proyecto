@@ -19,6 +19,15 @@ class AlertaController extends Controller
         return view('alerta.index',$datos);
     }
 
+    public function getAlertasNuevas(Request $request)
+    {
+        $alertas = alerta::with('bovino.raza')->get();
+        return response()->json([
+            "alertas" => $alertas,
+            "total" => $alertas->count(),
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

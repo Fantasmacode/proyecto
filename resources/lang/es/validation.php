@@ -146,6 +146,8 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'nombre_raz' => 'nombre raza',
+    ],
 
 ];
