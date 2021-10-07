@@ -114,7 +114,7 @@
 	        });
 		}
 		ubicaciones()
-		setInterval(ubicaciones, 30000);
+		setInterval(ubicaciones, 60000);
 	</script>
 </body>
 </html>

@@ -1,274 +1,129 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container" style="padding-top: 50px">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-<head>
+    <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('administrador') }}">
+            <div class="sidebar-brand-icon">
+                <i class="fas fa-home"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">Menú capataz</div>
+        </a>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
 
-    <title>Capataz</title>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
 
-    <!-- Custom fonts for this template-->
-    <link href="{{ asset('dash/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="{{ asset('dash/css/sb-admin-2.css') }}" rel="stylesheet">
-
-</head>
-
-<body id="page-top">
-
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-
-        <!-- Sidebar -->
-        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('administrador') }}" style="background-color:#008080;">
-                <div class="fa fa-fw fa-home">
-                </div>
-                <div class="sidebar-brand-text mx-3">Menú capataz<sup></sup></div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->   
-
-
-
-
-        <li class="nav-item active" style="background-color:#008080;">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseGanado"
-                    aria-expanded="true" aria-controls="collapseGanado">
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link {{ Request::is('bovino') || Request::is('bovino/*') || Request::is('comercio') || Request::is('comercio/*') || Request::is('baja') || Request::is('baja/*') || Request::is('proveedor') || Request::is('proveedor/*') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-horse"></i>
-                    <span>Gestión de ganado</span>
-                </a>
-                
-                <div id="collapseGanado" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" >
-                    <div class="bg-#008080 py-2 collapse-inner rounded">
-                
-                        <a class="collapse-item" href="{{ url('bovino') }}" >Bovinos</a>
-                        <!-- <a class="collapse-item" href="{{ url('mostrarestado') }}">Estado</a> -->
-                        <a class="collapse-item" href="{{ url('comercio') }}">Comercio</a>
-                        <a class="collapse-item" href="{{ url('baja') }}">Muertes</a>
-                        <a class="collapse-item" href="{{ url('proveedor') }}">Proveedores</a>
-                    
-                    </div>
-                    
+                <span>Gestión de ganado</span>
+            </a>
+            <div id="collapseTwo" class="collapse {{ Request::is('bovino') || Request::is('bovino/*') || Request::is('comercio') || Request::is('comercio/*') || Request::is('baja') || Request::is('baja/*') || Request::is('proveedor') || Request::is('proveedor/*') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item {{ Request::is('bovino') || Request::is('bovino/*')  ? 'active' : '' }}" href="{{ url('bovino') }}">Bovinos</a>
+                    <!-- <a class="collapse-item" href="{{ url('mostrarestado') }}">Estado</a> -->
+                    <a class="collapse-item {{ Request::is('comercio') || Request::is('comercio/*')  ? 'active' : '' }}" href="{{ url('comercio') }}">Comercio</a>
+                    <a class="collapse-item {{ Request::is('baja') || Request::is('baja/*') ? 'active' : '' }}" href="{{ url('baja') }}">Muertes</a>
+                    <a class="collapse-item {{ Request::is('proveedor') || Request::is('proveedor/*') ? 'active' : '' }}" href="{{ url('proveedor') }}">Proveedores</a>
                 </div>
-            </li>
+            </div>
+        </li>
 
-
-             <hr class="sidebar-divider my-0">
-
-            <li class="nav-item active" style="background-color:#008080;">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLote"
-                    aria-expanded="true" aria-controls="collapseLote">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>Parametrización</span>
-                </a>
-                <div id="collapseLote" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-#008080 py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ url('raza') }}" >Raza</a>
-                        <a class="collapse-item" href="{{ url('lote') }}" >Agregar Lote</a>
-                        <a class="collapse-item" href="{{ url('mostrarestadolote') }}">Filtro de Lotes</a>
-                        <a class="collapse-item" href="{{ url('sectorizacion') }}">Sectorización</a>
-                    </div>
+        <!-- Nav Item - Utilities Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link {{ Request::is('raza') || Request::is('raza/*') || Request::is('lote') || Request::is('lote/*') || Request::is('mostrarestadolote') || Request::is('mostrarestadolote/*') || Request::is('sectorizacion') || Request::is('sectorizacion/*') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                aria-expanded="true" aria-controls="collapseUtilities">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Parametrización</span>
+            </a>
+            <div id="collapseUtilities" class="collapse {{ Request::is('raza') || Request::is('raza/*') || Request::is('lote') || Request::is('lote/*') || Request::is('mostrarestadolote') || Request::is('mostrarestadolote/*') || Request::is('sectorizacion') || Request::is('sectorizacion/*') ? 'show' : '' }}" aria-labelledby="headingUtilities"
+                data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item {{ Request::is('raza') || Request::is('raza/*') ? 'active' : '' }}" href="{{ url('raza') }}" >Raza</a>
+                    <a class="collapse-item {{ Request::is('lote') || Request::is('lote/*') ? 'active' : '' }}" href="{{ url('lote') }}" >Agregar Lote</a>
+                    <a class="collapse-item {{ Request::is('mostrarestadolote') || Request::is('mostrarestadolote/*') ? 'active' : '' }}" href="{{ url('mostrarestadolote') }}">Filtro de Lotes</a>
+                    <a class="collapse-item {{ Request::is('sectorizacion') || Request::is('sectorizacion/*') ? 'active' : '' }}" href="{{ url('sectorizacion') }}">Sectorización</a>
                 </div>
-            </li>
+            </div>
+        </li>
 
-
-            
-            <!-- Nav Item - Utilities Collapse Menu -->
-           
-
-
-            
-           
-           <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active" style="background-color:#008080;">
-                <a class="nav-link" href="{{  url('alerta') }}">
-                 <i class="fas fa-satellite-dish"></i>
-                    <span>Reporte de alerta </span></a>
-            </li>
-
-            <!-- Heading -->
-          <hr class="sidebar-divider my-0">
-
-          <li class="nav-item active" style="background-color:#008080;">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTraslados"
-                    aria-expanded="true" aria-controls="collapseTraslados">
+        <li class="nav-item">
+            <a class="nav-link {{ Request::is('traslado') || Request::is('traslado/*') || Request::is('retorno') || Request::is('retorno/*') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseTraslados"
+                aria-expanded="true" aria-controls="collapseTraslados">
                 <i class="fas fa-caravan"></i>
-                    <span>Traslados</span>
-                </a>
-                <div id="collapseTraslados" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-#008080 py-2 collapse-inner rounded">
-                
-                        <a class="collapse-item" href="{{ url('traslado') }}" >Salidas</a>
-                        <a class="collapse-item" href="{{ url('retorno') }}" >Retorno</a>
-                        
-
-
-                    </div>
+                <span>Traslados</span>
+            </a>
+            <div id="collapseTraslados" class="collapse {{ Request::is('traslado') || Request::is('traslado/*') || Request::is('retorno') || Request::is('retorno/*') ? 'show' : '' }}" aria-labelledby="headingTraslados"
+                data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item {{ Request::is('traslado') || Request::is('traslado/*') ? 'active' : '' }}" href="{{ url('traslado') }}" >Salidas</a>
+                    <a class="collapse-item {{ Request::is('retorno') || Request::is('retorno/*') ? 'active' : '' }}" href="{{ url('retorno') }}" >Retorno</a>
                 </div>
-            </li>
-
-                <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active" style="background-color:#008080;">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMapa"
-                    aria-expanded="true" aria-controls="collapseMapa">
-                    <i class="fas fa-map-marked-alt"></i>
-                    <span>Mapa</span>
-                </a>
-                <div id="collapseMapa" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-#008080 py-2 collapse-inner rounded">
-                
-                        <a class="collapse-item" href="{{ route('ubicacion') }}" >Agregar Ubicación</a>
-
-                    </div>
-                </div>
-            </li>
-            
-
-            
-
-            
-            <!-- Nav Item - Dashboard -->
-            
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-         
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            
-           
-
-            <!-- Heading -->
-          
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            
-
-            <!-- Nav Item - Charts -->
-            
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0"style="background-color:#008080;" id="sidebarToggle"></button>
             </div>
+        </li>
 
-            <!-- Sidebar Message -->
-            
+        <li class="nav-item {{ Request::is('ubicacion') ? 'active' : '' }}">
+            <a class="nav-link" href="{{  url('ubicacion') }}">
+            <i class="fas fa-map-marked-alt"></i>
+            <span>Mapa </span></a>
+        </li>
 
-        </ul>
-        <!-- End of Sidebar -->
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="col-sm-11">
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+    </ul>
+    <!-- End of Sidebar -->
 
-            <!-- Main Content -->
-            <div id="content">
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
 
-                <!-- Topbar -->
+        <!-- Main Content -->
+        <div id="content">
 
-                <!-- End of Topbar -->
+            <!-- Topbar -->
+            @include('includes.navbar-admin')
+            <!-- End of Topbar -->
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                @if (Request::is('capataz'))
+                    <div class="row">
+                        <!-- Content Column -->
+                        <div class="col-lg-12 mb-4">
+                            <!-- Illustrations -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Bienvenida</h6>
+                                </div>
+                                <div class="card-body text-center">
+                                    <div class="text-center">
+                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="/img/undraw_posting_photo.svg" alt="...">
+                                    </div>
+                                    <p>Bienvenido al sistema: <strong>{{ Auth::user()->nombres_usuario }} {{ Auth::user()->apellidos_usuario }}</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @else
                     <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                           
+                    <div class="mb-4">
+                        @yield('form', '')
                     </div>
-                    @yield('form') 
-                    </div>
-
-                </div>
-                <!-- /.container-fluid -->
-
+                @endif
             </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            
-            <!-- End of Footer -->
+            <!-- /.container-fluid -->
 
         </div>
-        <!-- End of Content Wrapper -->
-
+        <!-- End of Main Content -->
     </div>
-    <footer>
-    
-    </footer>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('dash/vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('dash/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="{{ asset('dash/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="{{ asset('dash/js/sb-admin-2.min.js') }}"></script>
-
-    <!-- Page level plugins -->
-    <script src="{{ asset('dash/vendor/chart.js/Chart.min.js') }}"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="{{ asset('dash/js/demo/chart-area-demo.js') }}"></script>
-    <script src="{{ asset('dash/js/demo/chart-pie-demo.js') }}"></script>
-
-
-@yield('js')
-</body>
-
-</html>
-        </div>
-    </div>
-</div>
+    <!-- End of Content Wrapper -->
 @endsection
