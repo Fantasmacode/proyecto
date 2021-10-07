@@ -138,7 +138,7 @@
 						<td>{{ $res->lote->nombre_lote }}</td>
 						<td>{{ $res->usuario->nombres_usuario }} {{ $res->usuario->apellidos_usuario }}</td>
 						<td>
-							<a class="btn btn-dark" href="{{ url('/bovino/'.$res->id_bovino.'/edit') }}" data-toggle="tooltip" data-placement="left" title="Editar">
+							<a class="btn btn-light" href="{{ url('/bovino/'.$res->id_bovino.'/edit') }}" data-toggle="tooltip" data-placement="left" title="Editar">
 								<i class="far fa-edit"></i>
 
 							</a>
@@ -147,7 +147,7 @@
 								{{csrf_field() }}
 								{{ method_field('DELETE') }}
 
-								<button class="btn btn-dark" type="submit" data-toggle="tooltip" data-placement="left" title="Borrar" onclick="return confirm('¿Esta seguro de borrar el bovino: {{ $res->id_bovino }}?')">
+								<button class="btn btn-light" type="submit" data-toggle="tooltip" data-placement="left" title="Borrar" onclick="return confirm('¿Esta seguro de borrar el bovino: {{ $res->id_bovino }}?')">
 									<i class="far fa-trash-alt"></i>
 								</button>
 							</form>

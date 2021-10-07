@@ -51,9 +51,9 @@
 						<td>{{ $res->id_traslado }}</td>
 						<td>{{ $res->bovino->id_bovino }}</td>
 						<td>{{ $res->bovino->raza->nombre_raz }}</td>
-						<th>{{ $res->motivo->motivo_moti }}</th>
-						<th>{{ $res->fechas_traslado }}</th>
-						<th>{{ $res->horas_traslado }}</th>
+						<td>{{ $res->motivo->motivo_moti }}</td>
+						<td>{{ $res->fechas_traslado }}</td>
+						<td>{{ $res->horas_traslado }}</td>
 						<td>
 
 							<a class="btn btn-light" href="{{ url('/traslado/'.$res->id_traslado.'/edit') }}" data-toggle="tooltip" data-placement="left" title="Editar">

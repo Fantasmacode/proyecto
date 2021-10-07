@@ -51,8 +51,8 @@
                                 <span class="badge bg-danger text-white">{{ $bovino->estado->nombre_estadob }}</span>
                             @endif
                         </td>
-                        <th>{{ $bovino->fecha_bovino }}</th>
-                        <th>{{ $bovino->lote->nombre_lote }}</th>
+                        <td>{{ $bovino->fecha_bovino }}</td>
+                        <td>{{ $bovino->lote->nombre_lote }}</td>
                     </tr>
                     @endforeach
                 </tbody>
