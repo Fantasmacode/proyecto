@@ -18,7 +18,7 @@
             rel="stylesheet">
 
         <!-- Custom styles for this template-->
-        <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+        <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
     </head>
     <body id="page-top">
 
@@ -27,15 +27,14 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="/js/jquery.easing.min.js"></script>
+    <script src="{{ asset('js/jquery.easing.min.js') }}"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="/js/sb-admin-2.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     @stack('head')
 </body>
